@@ -1,50 +1,43 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!-- Sync Impact Report:
+Version change: 1.1.1 → 1.1.2
+Modified principles: Tradução total para PT-BR
+Added sections: N/A
+Removed sections: N/A
+Templates requiring updates: ⚠ pendente
+Follow-up TODOs: Verificar conformidade de todos os arquivos do projeto com o padrão PT-BR.
+-->
+# Constituição da API Pokémon
 
-## Core Principles
+## Princípios Fundamentais
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Qualidade em Primeiro Lugar
+A qualidade do código é primordial. Cada alteração deve ser revisada quanto à manutenibilidade, legibilidade e adesão aos padrões de projeto estabelecidos. A refatoração é uma atividade contínua e esperada, não uma tarefa adiada.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Desenvolvimento Orientado a Testes (TDD) (NÃO NEGOCIÁVEL)
+O TDD é a metodologia de desenvolvimento primária. O ciclo "vermelho-verde-refatorar" é estritamente aplicado: escrever um teste com falha que define um requisito, implementar apenas o necessário para passar no teste e, em seguida, refatorar para melhorar o design. Nenhum código chega à produção sem passar pelos testes associados.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Verificação Automatizada
+Todas as funcionalidades e correções de erros devem ter cobertura de testes automatizados. Isso inclui testes unitários para lógica isolada e testes de integração para limites de contrato ou comunicação. Testes manuais são apenas para a validação final.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Design Incremental e Simplicidade
+Siga os princípios YAGNI (Você Não Vai Precisar Disso) e KISS (Mantenha Simples, Estúpido). Projete sistemas incrementalmente com base nos requisitos atuais e testados. A complexidade deve ser explicitamente justificada e documentada.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Interfaces Baseadas em Contrato
+Todos os componentes devem interagir por meio de interfaces (contratos) bem definidas e documentadas. Garanta a compatibilidade com versões anteriores; alterações que quebrem a compatibilidade devem ser versionadas de acordo com o versionamento semântico (MAJOR.MINOR.PATCH) e documentadas nas notas de lançamento.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Fluxo de Trabalho de Desenvolvimento
+O desenvolvimento segue um processo rigoroso:
+1. **Gitflow**: Use o fluxo de trabalho Gitflow para gerenciamento de ramificações (master/main, develop, feature/hotfix).
+2. **Commits Semânticos**: Todos os commits DEVEM seguir a especificação de Conventional Commits (ex: `feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`).
+3. Requisitos e casos de teste definidos nas especificações.
+4. Revisão por pares obrigatória para todas as alterações.
+5. Verificação automatizada pelo pipeline de CI/CD antes da fusão (merge).
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+## Governança
+Esta constituição substitui todas as outras práticas.
+1. **Idioma Oficial**: O idioma oficial do projeto é o Português do Brasil (PT-BR). Toda a documentação, comentários de código e artefatos de projeto DEVEM seguir este padrão.
+2. Emendas exigem documentação da alteração proposta, análise de impacto e aprovação.
+3. Todos os pull requests e revisões devem verificar a conformidade com estes princípios.
+4. Dívidas técnicas devem ser rastreadas e priorizadas.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
-
-## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
-
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
-
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Versão**: 1.1.2 | **Ratificada**: 2026-04-26 | **Última Emenda**: 2026-04-26

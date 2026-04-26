@@ -1,4 +1,4 @@
-# Pokémon API
+# Pokedex API
 
 API para cadastro e gerenciamento de Pokémon, desenvolvida com Spring Boot.
 
@@ -11,7 +11,7 @@ API para cadastro e gerenciamento de Pokémon, desenvolvida com Spring Boot.
 
 ## Estrutura do Projeto
 ```text
-src/main/java/br/edu/shandragon/pokemon/
+src/main/java/br/edu/shandragon/pokedex/
 ├── config/      # Configurações do projeto
 ├── controller/  # Endpoints da API
 ├── dto/         # Objetos de transferência de dados
