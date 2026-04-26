@@ -1,0 +1,45 @@
+# Java/Spring Boot
+target/
+*.class
+*.jar
+.gradle/
+build/
+.settings/
+.classpath
+.project
+.idea/
+*.iml
+.mvn/
+
+# OS
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+
+# Environment
+.env*
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Build Tools
+.settings/
+.classpath
+.project
+.metadata/
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
