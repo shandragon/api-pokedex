@@ -1,7 +1,7 @@
 package br.edu.shandragon.pokedex.controller;
 
-import br.edu.shandragon.pokedex.model.Pokemon;
-import br.edu.shandragon.pokedex.model.Evolucao;
+import br.edu.shandragon.pokedex.dto.EvolucaoDTO;
+import br.edu.shandragon.pokedex.dto.PokemonDTO;
 import br.edu.shandragon.pokedex.service.PokemonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,19 +14,19 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/pokemon")
+@RequestMapping("/api/pokedex")
 public class PokemonController {
 
     @Autowired
     private PokemonService pokemonService;
 
     @GetMapping("/por-tipo")
-    public ResponseEntity<Map<String, List<Pokemon>>> listarPorTipo() {
+    public ResponseEntity<Map<String, List<PokemonDTO>>> listarPorTipo() {
         return ResponseEntity.ok(pokemonService.listarAgrupadoPorTipo());
     }
 
     @GetMapping("/{id}/evolucoes")
-    public ResponseEntity<List<Evolucao>> listarEvolucoes(@PathVariable Long id) {
+    public ResponseEntity<List<EvolucaoDTO>> listarEvolucoes(@PathVariable Long id) {
         return ResponseEntity.ok(pokemonService.buscarEvolucoes(id));
     }
 }

@@ -11,7 +11,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/pokemon/por-tipo",
+					"raw": "http://localhost:8080/api/pokedex/por-tipo",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -19,7 +19,7 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"pokemon",
+						"pokedex",
 						"por-tipo"
 					]
 				}
@@ -31,7 +31,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/pokemon/1/evolucoes",
+					"raw": "http://localhost:8080/api/pokedex/1/evolucoes",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -39,7 +39,7 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"pokemon",
+						"pokedex",
 						"1",
 						"evolucoes"
 					]
