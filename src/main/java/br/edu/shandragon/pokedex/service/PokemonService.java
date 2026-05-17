@@ -3,6 +3,7 @@ package br.edu.shandragon.pokedex.service;
 import br.edu.shandragon.pokedex.dto.EvolucaoDTO;
 import br.edu.shandragon.pokedex.dto.PokemonDTO;
 import br.edu.shandragon.pokedex.dto.TipoDTO;
+import br.edu.shandragon.pokedex.exception.PokemonNaoEncontradoException;
 import br.edu.shandragon.pokedex.model.Evolucao;
 import br.edu.shandragon.pokedex.model.Pokemon;
 import br.edu.shandragon.pokedex.repository.EvolucaoRepository;
@@ -38,6 +39,9 @@ public class PokemonService {
     }
 
     public List<EvolucaoDTO> buscarEvolucoes(Long pokemonId) {
+        if (!pokemonRepository.existsById(pokemonId)) {
+            throw new PokemonNaoEncontradoException(pokemonId);
+        }
         return evolucaoRepository.findByPokemonOrigemIdOrPokemonDestinoId(pokemonId, pokemonId)
                 .stream()
                 .map(this::toEvolucaoDTO)

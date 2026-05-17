@@ -1,8 +1,8 @@
 # Especificação de Funcionalidade: Cadastro de Pokémon
 
-**Branch de Funcionalidade**: `[###-pokedex-cadastro-api]`  
+**Branch de Funcionalidade**: `feature/001-pokedex-api`  
 **Criada**: 2026-04-26  
-**Status**: Rascunho  
+**Status**: Finalizada  
 **Entrada**: Descrição do usuário: "Crie uma aplicação backend para prover a lista de cadastro de pokedex. Os pokedexs devem ser agrupados pelos tipos, podendo ter um ou mais tipos. Também deve possuir uma relação que apresente as suas evoluções."
 
 ## Cenários de Usuário e Testes *(obrigatório)*
@@ -33,7 +33,8 @@ Como um usuário, quero consultar a linha evolutiva de um Pokémon específico p
 **Cenários de Aceite**:
 
 1. **Dado** que o Pokémon possui evoluções, **Quando** o usuário consulta os detalhes do Pokémon, **Então** o sistema apresenta a relação de evoluções.
-2. **Dado** que o Pokémon não possui evoluções, **Quando** o usuário consulta os detalhes, **Então** o sistema indica que não há evoluções.
+2. **Dado** que o Pokémon não possui evoluções, **Quando** o usuário consulta os detalhes, **Então** o sistema retorna uma lista vazia.
+3. **Dado** que o ID do Pokémon não existe, **Quando** o usuário consulta as evoluções, **Então** o sistema retorna HTTP 404 com mensagem de erro clara.
 
 ## Requisitos *(obrigatório)*
 
@@ -56,7 +57,7 @@ Como um usuário, quero consultar a linha evolutiva de um Pokémon específico p
 
 - **CS-001**: O tempo de resposta para a listagem de todos os Pokémon agrupados por tipo deve ser inferior a 500ms para até 1.000 registros.
 - **CS-002**: 100% dos Pokémon com múltiplos tipos devem ser listados corretamente em todas as categorias correspondentes.
-- **CS-003**: A relação de evoluções deve ser consistente em todas as consultas (ex: se A evolui para B, a consulta de B deve indicar A como pré-evolução).
+- **CS-003**: A relação de evoluções deve ser bidirecional e consistente: `GET /api/pokedex/{id}/evolucoes` deve retornar tanto pré-evoluções quanto pós-evoluções do Pokémon consultado (ex: se A evolui para B, consultar B deve retornar A como pokemonOrigem).
 
 ## Premissas
 

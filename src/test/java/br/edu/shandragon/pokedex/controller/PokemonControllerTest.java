@@ -2,12 +2,13 @@ package br.edu.shandragon.pokedex.controller;
 
 import br.edu.shandragon.pokedex.dto.EvolucaoDTO;
 import br.edu.shandragon.pokedex.dto.PokemonDTO;
+import br.edu.shandragon.pokedex.exception.PokemonNaoEncontradoException;
 import br.edu.shandragon.pokedex.service.PokemonService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -67,5 +68,15 @@ class PokemonControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].pokemonOrigem.nome").value("Charmander"))
                 .andExpect(jsonPath("$[0].pokemonDestino.nome").value("Charmeleon"));
+    }
+
+    @Test
+    void listarEvolucoes_deveRetornar404QuandoPokemonNaoExiste() throws Exception {
+        when(pokemonService.buscarEvolucoes(99L))
+                .thenThrow(new PokemonNaoEncontradoException(99L));
+
+        mockMvc.perform(get("/api/pokedex/99/evolucoes"))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.erro").exists());
     }
 }

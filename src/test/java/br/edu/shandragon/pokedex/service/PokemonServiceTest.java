@@ -2,6 +2,7 @@ package br.edu.shandragon.pokedex.service;
 
 import br.edu.shandragon.pokedex.dto.EvolucaoDTO;
 import br.edu.shandragon.pokedex.dto.PokemonDTO;
+import br.edu.shandragon.pokedex.exception.PokemonNaoEncontradoException;
 import br.edu.shandragon.pokedex.model.Evolucao;
 import br.edu.shandragon.pokedex.model.Pokemon;
 import br.edu.shandragon.pokedex.model.Tipo;
@@ -18,6 +19,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -75,6 +77,7 @@ class PokemonServiceTest {
         Pokemon charmander = new Pokemon(1L, "Charmander", Set.of());
         Pokemon charmeleon = new Pokemon(2L, "Charmeleon", Set.of());
         Evolucao evolucao = new Evolucao(1L, charmander, charmeleon);
+        when(pokemonRepository.existsById(1L)).thenReturn(true);
         when(evolucaoRepository.findByPokemonOrigemIdOrPokemonDestinoId(1L, 1L))
                 .thenReturn(List.of(evolucao));
 
@@ -86,12 +89,22 @@ class PokemonServiceTest {
     }
 
     @Test
-    void buscarEvolucoes_deveRetornarListaVaziaQuandoSemEvolucoes() {
-        when(evolucaoRepository.findByPokemonOrigemIdOrPokemonDestinoId(99L, 99L))
+    void buscarEvolucoes_deveRetornarListaVaziaQuandoPokemonSemEvolucoes() {
+        when(pokemonRepository.existsById(1L)).thenReturn(true);
+        when(evolucaoRepository.findByPokemonOrigemIdOrPokemonDestinoId(1L, 1L))
                 .thenReturn(List.of());
 
-        List<EvolucaoDTO> resultado = pokemonService.buscarEvolucoes(99L);
+        List<EvolucaoDTO> resultado = pokemonService.buscarEvolucoes(1L);
 
         assertThat(resultado).isEmpty();
+    }
+
+    @Test
+    void buscarEvolucoes_deveLancarExcecaoQuandoPokemonNaoExiste() {
+        when(pokemonRepository.existsById(99L)).thenReturn(false);
+
+        assertThatThrownBy(() -> pokemonService.buscarEvolucoes(99L))
+                .isInstanceOf(PokemonNaoEncontradoException.class)
+                .hasMessageContaining("99");
     }
 }
