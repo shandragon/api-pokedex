@@ -1,0 +1,32 @@
+package br.edu.shandragon.pokedex.usuario.entidade;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.Instant;
+import java.util.UUID;
+
+@Entity
+@Table(name = "usuarios")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Usuario {
+
+    @Id
+    @Column(columnDefinition = "uuid")
+    private UUID id;
+
+    @Column(nullable = false)
+    private String nome;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(name = "senha_hash", nullable = false)
+    private String senhaHash;
+
+    @Column(name = "criado_em", nullable = false, updatable = false)
+    private Instant criadoEm;
+}

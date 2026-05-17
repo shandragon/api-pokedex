@@ -2,49 +2,207 @@
 	"info": {
 		"_postman_id": "8f2d5e1f-7b3b-4c5c-9d6c-3e3e3e3e3e3e",
 		"name": "Pokedex API",
+		"description": "Coleção completa da API Pokédex — persistência híbrida (PostgreSQL + MongoDB)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
-	"item": [
+	"variable": [
 		{
-			"name": "Listar Pokémon por Tipo",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/api/pokedex/por-tipo",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"pokedex",
-						"por-tipo"
-					]
-				}
-			}
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
 		},
 		{
-			"name": "Listar Evoluções de Pokémon",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/api/pokedex/1/evolucoes",
-					"protocol": "http",
-					"host": [
-						"localhost"
+			"key": "token_admin",
+			"value": "token-dev-alterar-em-producao",
+			"type": "string"
+		},
+		{
+			"key": "pokemon_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "usuario_id",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Pokémon",
+			"item": [
+				{
+					"name": "Cadastrar Pokémon",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"    var json = pm.response.json();",
+									"    pm.collectionVariables.set('pokemon_id', json.id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
 					],
-					"port": "8080",
-					"path": [
-						"api",
-						"pokedex",
-						"1",
-						"evolucoes"
-					]
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_admin}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"numeroPokdex\": 1,\n  \"nome\": \"Bulbasaur\",\n  \"tipos\": [\"Planta\", \"Veneno\"],\n  \"ataques\": [\"Investida\", \"Absorver\", \"Chicote de Vinha\"],\n  \"fraquezas\": [\"Fogo\", \"Gelo\", \"Voador\", \"Psíquico\"],\n  \"estatisticas\": {\n    \"hp\": 45,\n    \"ataque\": 49,\n    \"defesa\": 49,\n    \"velocidade\": 45\n  }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/pokemon",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pokemon"]
+						},
+						"description": "Cria um novo Pokémon. Atributos fixos (numeroPokdex, nome, tipos) vão para o PostgreSQL; atributos adicionais (ataques, fraquezas, etc.) vão para o MongoDB. Requer token de autenticação."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Pokémon",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/pokemon",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pokemon"]
+						},
+						"description": "Lista todos os Pokémon cadastrados com visão unificada (atributos fixos + flexíveis). Endpoint aberto, sem autenticação."
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Pokémon por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/pokemon/{{pokemon_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pokemon", "{{pokemon_id}}"]
+						},
+						"description": "Busca um Pokémon pelo UUID V7 interno. Retorna visão unificada (PostgreSQL + MongoDB). Endpoint aberto."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Pokémon por Tipo (legado)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/pokedex/por-tipo",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pokedex", "por-tipo"]
+						},
+						"description": "Retorna todos os Pokémon agrupados por tipo elemental. Pokémon com múltiplos tipos aparecem em todas as categorias correspondentes. Endpoint aberto."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Evoluções de Pokémon (legado)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/pokedex/{{pokemon_id}}/evolucoes",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pokedex", "{{pokemon_id}}", "evolucoes"]
+						},
+						"description": "Retorna as relações evolutivas de um Pokémon (pré-evoluções e pós-evoluções). O parâmetro {id} agora é UUID V7 (não mais Long). Endpoint aberto."
+					},
+					"response": []
 				}
-			}
+			]
+		},
+		{
+			"name": "Usuários",
+			"item": [
+				{
+					"name": "Cadastrar Usuário",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"    var json = pm.response.json();",
+									"    pm.collectionVariables.set('usuario_id', json.id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_admin}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"Ash Ketchum\",\n  \"email\": \"ash@pokemon.com\",\n  \"senha\": \"senhaSegura123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/usuarios",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuarios"]
+						},
+						"description": "Cadastra um novo usuário. Senha é armazenada como hash BCrypt — nunca retornada na resposta. Requer token de autenticação."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Usuários",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/usuarios",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuarios"]
+						},
+						"description": "Lista todos os usuários cadastrados. Retorna apenas id e nome — e-mail não é exposto em endpoints públicos. Endpoint aberto, sem autenticação."
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Usuário por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/usuarios/{{usuario_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuarios", "{{usuario_id}}"]
+						},
+						"description": "Busca um usuário pelo UUID V7. Retorna apenas id e nome. Endpoint aberto."
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

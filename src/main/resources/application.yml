@@ -1,13 +1,24 @@
 spring:
-  profiles:
-    active: dev
   datasource:
-    url: jdbc:h2:mem:pokedexdb;DB_CLOSE_DELAY=-1
-    driverClassName: org.h2.Driver
+    url: jdbc:postgresql://localhost:5432/app_pokedex
+    username: user_pokedex
+    password: 123456
+    driver-class-name: org.postgresql.Driver
+
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
-  h2:
-    console:
-      enabled: true
+    show-sql: false
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: always
+
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/app_pokedex
+
+app:
+  seguranca:
+    token-admin: token-dev-alterar-em-producao
