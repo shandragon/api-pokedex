@@ -20,6 +20,16 @@ src/main/java/br/edu/shandragon/pokedex/
 └── service/     # Lógica de negócio
 ```
 
+## API Endpoints
+
+A API disponibiliza os seguintes endpoints:
+
+- **Listar Pokémon por Tipo**: `GET /api/pokemon/por-tipo`
+  - Retorna todos os Pokémon cadastrados, agrupados por seus respectivos tipos.
+
+- **Listar Evoluções de Pokémon**: `GET /api/pokemon/{id}/evolucoes`
+  - Retorna a relação de evoluções (pré-evoluções e pós-evoluções) de um Pokémon específico pelo seu ID.
+
 ## Como configurar e executar
 1. Certifique-se de ter o **JDK 17** instalado.
 2. Clone o repositório.

@@ -1,0 +1,50 @@
+{
+	"info": {
+		"_postman_id": "8f2d5e1f-7b3b-4c5c-9d6c-3e3e3e3e3e3e",
+		"name": "Pokedex API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Listar Pokémon por Tipo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pokedex/por-tipo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pokedex",
+						"por-tipo"
+					]
+				}
+			}
+		},
+		{
+			"name": "Listar Evoluções de Pokémon",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pokedex/1/evolucoes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pokedex",
+						"1",
+						"evolucoes"
+					]
+				}
+			}
+		}
+	]
+}
