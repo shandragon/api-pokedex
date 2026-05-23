@@ -20,8 +20,8 @@
 
 - [x] T001 Atualizar `pom.xml` com as dependências: `spring-boot-starter-data-mongodb`, `spring-boot-starter-security`, `com.github.f4b6a3:uuid-creator:5.3.3` e `de.flapdoodle.embed:de.flapdoodle.embed.mongo.spring3x` (escopo test)
 - [x] T002 [P] Criar `compartilhado/UuidUtil.java` com método estático `gerarV7()` retornando `java.util.UUID` via `UuidCreator.getTimeOrderedEpoch()`
-- [x] T003 [P] Criar `config/PersistenciaJpaConfig.java` com `@EnableJpaRepositories(basePackages = {"br.edu.shandragon.pokedex.pokemon.repositorio.jpa", "br.edu.shandragon.pokedex.usuario.repositorio.jpa"})`
-- [x] T004 [P] Criar `config/PersistenciaMongoConfig.java` com `@EnableMongoRepositories(basePackages = {"br.edu.shandragon.pokedex.pokemon.repositorio.mongo"})`
+- [x] T003 [P] Criar `config/PersistenciaJpaConfig.java` com `@EnableJpaRepositories(basePackages = {"br.edu.shandragon.pokedex.pokemon.repository.jpa", "br.edu.shandragon.pokedex.usuario.repository.jpa"})`
+- [x] T004 [P] Criar `config/PersistenciaMongoConfig.java` com `@EnableMongoRepositories(basePackages = {"br.edu.shandragon.pokedex.pokemon.repository.mongo"})`
 - [x] T005 Criar `config/SegurancaConfig.java` com `@EnableWebSecurity`: permitir todos os métodos GET sem autenticação; exigir cabeçalho `Authorization: Bearer <token>` para POST, PUT, DELETE; token lido de `app.seguranca.token-admin`
 - [x] T006 Criar `src/main/resources/application.yml` com datasource PostgreSQL, URI MongoDB e propriedade `app.seguranca.token-admin`; criar `src/test/resources/application-test.yml` com H2 (JPA) e MongoDB embarcado (Flapdoodle)
 
