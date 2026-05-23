@@ -57,23 +57,13 @@ src/main/java/br/edu/shandragon/pokedex/
 
 ### 1. Subir os bancos de dados
 
-```bash
-docker run -d \
-  --name pokedex-postgres \
-  -e POSTGRES_DB=app_pokedex \
-  -e POSTGRES_USER=user_pokedex \
-  -e POSTGRES_PASSWORD=123456 \
-  -p 5432:5432 \
-  postgres:16-alpine
+Utilize o Docker Compose para iniciar as instâncias do PostgreSQL e MongoDB:
 
-docker run -d \
-  --name pokedex-mongo \
-  -e MONGO_INITDB_ROOT_USERNAME=admin_pokedex \
-  -e MONGO_INITDB_ROOT_PASSWORD=123456 \
-  -e MONGO_INITDB_DATABASE=app_pokedex \
-  -p 27017:27017 \
-  mongo:7
+```bash
+docker-compose up -d
 ```
+
+Isso criará os containers com as credenciais e bancos de dados necessários (`app_pokedex`).
 
 ### 2. Configurar `application.yml`
 
