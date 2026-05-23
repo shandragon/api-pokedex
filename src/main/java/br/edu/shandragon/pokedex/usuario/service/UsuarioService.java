@@ -1,11 +1,11 @@
-package br.edu.shandragon.pokedex.usuario.servico;
+package br.edu.shandragon.pokedex.usuario.service;
 
 import br.edu.shandragon.pokedex.compartilhado.UuidUtil;
 import br.edu.shandragon.pokedex.usuario.dto.UsuarioRequisicaoDTO;
 import br.edu.shandragon.pokedex.usuario.dto.UsuarioRespostaDTO;
 import br.edu.shandragon.pokedex.usuario.dto.UsuarioRespostaPublicaDTO;
-import br.edu.shandragon.pokedex.usuario.entidade.Usuario;
-import br.edu.shandragon.pokedex.usuario.repositorio.jpa.UsuarioRepositorio;
+import br.edu.shandragon.pokedex.usuario.entity.Usuario;
+import br.edu.shandragon.pokedex.usuario.repository.jpa.UsuarioRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,12 +18,12 @@ import java.util.UUID;
 
 @Service
 @Transactional(readOnly = true)
-public class UsuarioServico {
+public class UsuarioService {
 
-    private final UsuarioRepositorio repositorio;
+    private final UsuarioRepository repositorio;
     private final PasswordEncoder codificadorDeSenha;
 
-    public UsuarioServico(UsuarioRepositorio repositorio, PasswordEncoder codificadorDeSenha) {
+    public UsuarioService(UsuarioRepository repositorio, PasswordEncoder codificadorDeSenha) {
         this.repositorio = repositorio;
         this.codificadorDeSenha = codificadorDeSenha;
     }

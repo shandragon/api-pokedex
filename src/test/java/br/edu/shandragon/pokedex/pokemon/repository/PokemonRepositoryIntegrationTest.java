@@ -1,10 +1,10 @@
-package br.edu.shandragon.pokedex.pokemon.repositorio;
+package br.edu.shandragon.pokedex.pokemon.repository;
 
 import br.edu.shandragon.pokedex.compartilhado.UuidUtil;
-import br.edu.shandragon.pokedex.pokemon.entidade.Pokemon;
-import br.edu.shandragon.pokedex.pokemon.entidade.Tipo;
-import br.edu.shandragon.pokedex.pokemon.repositorio.jpa.PokemonRepositorio;
-import br.edu.shandragon.pokedex.pokemon.repositorio.jpa.TipoRepositorio;
+import br.edu.shandragon.pokedex.pokemon.entity.Pokemon;
+import br.edu.shandragon.pokedex.pokemon.entity.Tipo;
+import br.edu.shandragon.pokedex.pokemon.repository.jpa.PokemonRepository;
+import br.edu.shandragon.pokedex.pokemon.repository.jpa.TipoRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -17,13 +17,13 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DataJpaTest
 @ActiveProfiles("test")
-class PokemonRepositorioIntegracaoTest {
+class PokemonRepositoryIntegrationTest {
 
     @Autowired
-    private PokemonRepositorio pokemonRepositorio;
+    private PokemonRepository pokemonRepositorio;
 
     @Autowired
-    private TipoRepositorio tipoRepositorio;
+    private TipoRepository tipoRepositorio;
 
     @Test
     void devePersistirPokemonComUuidV7() {

@@ -1,4 +1,4 @@
-package br.edu.shandragon.pokedex.pokemon.entidade;
+package br.edu.shandragon.pokedex.pokemon.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

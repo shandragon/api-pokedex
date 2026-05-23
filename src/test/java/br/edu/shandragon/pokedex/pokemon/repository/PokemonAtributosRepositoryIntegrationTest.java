@@ -1,7 +1,7 @@
-package br.edu.shandragon.pokedex.pokemon.repositorio;
+package br.edu.shandragon.pokedex.pokemon.repository;
 
-import br.edu.shandragon.pokedex.pokemon.documento.PokemonAtributos;
-import br.edu.shandragon.pokedex.pokemon.repositorio.mongo.PokemonAtributosRepositorio;
+import br.edu.shandragon.pokedex.pokemon.document.PokemonAtributos;
+import br.edu.shandragon.pokedex.pokemon.repository.mongo.PokemonAtributosRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
@@ -14,10 +14,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataMongoTest
 @ActiveProfiles("test")
-class PokemonAtributosRepositorioIntegracaoTest {
+class PokemonAtributosRepositoryIntegrationTest {
 
     @Autowired
-    private PokemonAtributosRepositorio repositorio;
+    private PokemonAtributosRepository repositorio;
 
     @Test
     void devePersistirERecuperarAtributosFlexiveis() {

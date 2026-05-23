@@ -1,4 +1,4 @@
-package br.edu.shandragon.pokedex.pokemon.documento;
+package br.edu.shandragon.pokedex.pokemon.document;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;

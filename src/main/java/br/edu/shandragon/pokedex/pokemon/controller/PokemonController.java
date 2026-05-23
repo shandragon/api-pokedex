@@ -2,7 +2,7 @@ package br.edu.shandragon.pokedex.pokemon.controller;
 
 import br.edu.shandragon.pokedex.pokemon.dto.PokemonRequisicaoDTO;
 import br.edu.shandragon.pokedex.pokemon.dto.PokemonRespostaDTO;
-import br.edu.shandragon.pokedex.pokemon.servico.PokemonServico;
+import br.edu.shandragon.pokedex.pokemon.service.PokemonService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +14,9 @@ import java.util.Map;
 @RestController
 public class PokemonController {
 
-    private final PokemonServico servico;
+    private final PokemonService servico;
 
-    public PokemonController(PokemonServico servico) {
+    public PokemonController(PokemonService servico) {
         this.servico = servico;
     }
 

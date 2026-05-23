@@ -3,7 +3,7 @@ package br.edu.shandragon.pokedex.usuario.controller;
 import br.edu.shandragon.pokedex.usuario.dto.UsuarioRequisicaoDTO;
 import br.edu.shandragon.pokedex.usuario.dto.UsuarioRespostaDTO;
 import br.edu.shandragon.pokedex.usuario.dto.UsuarioRespostaPublicaDTO;
-import br.edu.shandragon.pokedex.usuario.servico.UsuarioServico;
+import br.edu.shandragon.pokedex.usuario.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +16,9 @@ import java.util.UUID;
 @RequestMapping("/api/usuarios")
 public class UsuarioController {
 
-    private final UsuarioServico servico;
+    private final UsuarioService servico;
 
-    public UsuarioController(UsuarioServico servico) {
+    public UsuarioController(UsuarioService servico) {
         this.servico = servico;
     }
 

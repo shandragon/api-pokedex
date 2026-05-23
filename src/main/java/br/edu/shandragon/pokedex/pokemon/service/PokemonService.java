@@ -1,16 +1,16 @@
-package br.edu.shandragon.pokedex.pokemon.servico;
+package br.edu.shandragon.pokedex.pokemon.service;
 
 import br.edu.shandragon.pokedex.compartilhado.UuidUtil;
-import br.edu.shandragon.pokedex.pokemon.documento.PokemonAtributos;
+import br.edu.shandragon.pokedex.pokemon.document.PokemonAtributos;
 import br.edu.shandragon.pokedex.pokemon.dto.PokemonRequisicaoDTO;
 import br.edu.shandragon.pokedex.pokemon.dto.PokemonRespostaDTO;
-import br.edu.shandragon.pokedex.pokemon.entidade.Evolucao;
-import br.edu.shandragon.pokedex.pokemon.entidade.Pokemon;
-import br.edu.shandragon.pokedex.pokemon.entidade.Tipo;
-import br.edu.shandragon.pokedex.pokemon.repositorio.jpa.EvolucaoRepositorio;
-import br.edu.shandragon.pokedex.pokemon.repositorio.jpa.PokemonRepositorio;
-import br.edu.shandragon.pokedex.pokemon.repositorio.jpa.TipoRepositorio;
-import br.edu.shandragon.pokedex.pokemon.repositorio.mongo.PokemonAtributosRepositorio;
+import br.edu.shandragon.pokedex.pokemon.entity.Evolucao;
+import br.edu.shandragon.pokedex.pokemon.entity.Pokemon;
+import br.edu.shandragon.pokedex.pokemon.entity.Tipo;
+import br.edu.shandragon.pokedex.pokemon.repository.jpa.EvolucaoRepository;
+import br.edu.shandragon.pokedex.pokemon.repository.jpa.PokemonRepository;
+import br.edu.shandragon.pokedex.pokemon.repository.jpa.TipoRepository;
+import br.edu.shandragon.pokedex.pokemon.repository.mongo.PokemonAtributosRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,17 +21,17 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
-public class PokemonServico {
+public class PokemonService {
 
-    private final PokemonRepositorio pokemonRepositorio;
-    private final TipoRepositorio tipoRepositorio;
-    private final EvolucaoRepositorio evolucaoRepositorio;
-    private final PokemonAtributosRepositorio atributosRepositorio;
+    private final PokemonRepository pokemonRepositorio;
+    private final TipoRepository tipoRepositorio;
+    private final EvolucaoRepository evolucaoRepositorio;
+    private final PokemonAtributosRepository atributosRepositorio;
 
-    public PokemonServico(PokemonRepositorio pokemonRepositorio,
-                          TipoRepositorio tipoRepositorio,
-                          EvolucaoRepositorio evolucaoRepositorio,
-                          PokemonAtributosRepositorio atributosRepositorio) {
+    public PokemonService(PokemonRepository pokemonRepositorio,
+                          TipoRepository tipoRepositorio,
+                          EvolucaoRepository evolucaoRepositorio,
+                          PokemonAtributosRepository atributosRepositorio) {
         this.pokemonRepositorio = pokemonRepositorio;
         this.tipoRepositorio = tipoRepositorio;
         this.evolucaoRepositorio = evolucaoRepositorio;

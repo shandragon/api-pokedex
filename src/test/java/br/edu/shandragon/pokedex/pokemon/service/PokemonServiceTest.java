@@ -1,14 +1,14 @@
-package br.edu.shandragon.pokedex.pokemon.servico;
+package br.edu.shandragon.pokedex.pokemon.service;
 
-import br.edu.shandragon.pokedex.pokemon.documento.PokemonAtributos;
+import br.edu.shandragon.pokedex.pokemon.document.PokemonAtributos;
 import br.edu.shandragon.pokedex.pokemon.dto.PokemonRequisicaoDTO;
-import br.edu.shandragon.pokedex.pokemon.entidade.Evolucao;
-import br.edu.shandragon.pokedex.pokemon.entidade.Pokemon;
-import br.edu.shandragon.pokedex.pokemon.entidade.Tipo;
-import br.edu.shandragon.pokedex.pokemon.repositorio.jpa.EvolucaoRepositorio;
-import br.edu.shandragon.pokedex.pokemon.repositorio.jpa.PokemonRepositorio;
-import br.edu.shandragon.pokedex.pokemon.repositorio.jpa.TipoRepositorio;
-import br.edu.shandragon.pokedex.pokemon.repositorio.mongo.PokemonAtributosRepositorio;
+import br.edu.shandragon.pokedex.pokemon.entity.Evolucao;
+import br.edu.shandragon.pokedex.pokemon.entity.Pokemon;
+import br.edu.shandragon.pokedex.pokemon.entity.Tipo;
+import br.edu.shandragon.pokedex.pokemon.repository.jpa.EvolucaoRepository;
+import br.edu.shandragon.pokedex.pokemon.repository.jpa.PokemonRepository;
+import br.edu.shandragon.pokedex.pokemon.repository.jpa.TipoRepository;
+import br.edu.shandragon.pokedex.pokemon.repository.mongo.PokemonAtributosRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,15 +26,15 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.lenient;
 
 @ExtendWith(MockitoExtension.class)
-class PokemonServicoTest {
+class PokemonServiceTest {
 
-    @Mock private PokemonRepositorio pokemonRepositorio;
-    @Mock private TipoRepositorio tipoRepositorio;
-    @Mock private EvolucaoRepositorio evolucaoRepositorio;
-    @Mock private PokemonAtributosRepositorio atributosRepositorio;
+    @Mock private PokemonRepository pokemonRepositorio;
+    @Mock private TipoRepository tipoRepositorio;
+    @Mock private EvolucaoRepository evolucaoRepositorio;
+    @Mock private PokemonAtributosRepository atributosRepositorio;
 
     @InjectMocks
-    private PokemonServico servico;
+    private PokemonService servico;
 
     private Tipo tipoPlanta;
     private Pokemon pokemonSalvo;

@@ -1,8 +1,8 @@
-package br.edu.shandragon.pokedex.usuario.repositorio;
+package br.edu.shandragon.pokedex.usuario.repository;
 
 import br.edu.shandragon.pokedex.compartilhado.UuidUtil;
-import br.edu.shandragon.pokedex.usuario.entidade.Usuario;
-import br.edu.shandragon.pokedex.usuario.repositorio.jpa.UsuarioRepositorio;
+import br.edu.shandragon.pokedex.usuario.entity.Usuario;
+import br.edu.shandragon.pokedex.usuario.repository.jpa.UsuarioRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -15,10 +15,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DataJpaTest
 @ActiveProfiles("test")
-class UsuarioRepositorioIntegracaoTest {
+class UsuarioRepositoryIntegrationTest {
 
     @Autowired
-    private UsuarioRepositorio repositorio;
+    private UsuarioRepository repositorio;
 
     @Test
     void devePersistirERecuperarUsuarioPorId() {

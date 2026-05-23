@@ -1,8 +1,8 @@
-package br.edu.shandragon.pokedex.usuario.servico;
+package br.edu.shandragon.pokedex.usuario.service;
 
 import br.edu.shandragon.pokedex.usuario.dto.UsuarioRequisicaoDTO;
-import br.edu.shandragon.pokedex.usuario.entidade.Usuario;
-import br.edu.shandragon.pokedex.usuario.repositorio.jpa.UsuarioRepositorio;
+import br.edu.shandragon.pokedex.usuario.entity.Usuario;
+import br.edu.shandragon.pokedex.usuario.repository.jpa.UsuarioRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,16 +23,16 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class UsuarioServicoTest {
+class UsuarioServiceTest {
 
     @Mock
-    private UsuarioRepositorio repositorio;
+    private UsuarioRepository repositorio;
 
     @Mock
     private PasswordEncoder codificadorDeSenha;
 
     @InjectMocks
-    private UsuarioServico servico;
+    private UsuarioService servico;
 
     private Usuario usuarioExemplo;
 
