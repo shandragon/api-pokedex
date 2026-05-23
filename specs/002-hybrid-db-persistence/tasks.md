@@ -134,6 +134,7 @@
 - [x] T040 [P] Verificar que `GET /api/pokedex/por-tipo` agrupa corretamente por tipo com dados vindos do PostgreSQL e retorna o mesmo formato da spec 001
 - [x] T041 [P] Verificar que `GET /api/pokedex/{id}/evolucoes` funciona com UUID String (não mais Long) e retorna formato conforme `contracts/pokedex-legado.md`
 - [x] T042 [P] Adicionar validação de entrada com `@Valid` e `@NotBlank`, `@NotNull`, `@Min(1)` nos DTOs de requisição de Usuario e Pokemon; garantir que `400 Bad Request` é retornado com mensagem clara para campos obrigatórios ausentes
+- [x] T044 [US2] Criar `pokemon/dto/PokemonRequisicaoDTODeserializer.java`: deserializador Jackson customizado (`@JsonDeserialize`) que lê o corpo da requisição e mapeia campos fixos conhecidos (`numeroPokdex`, `nome`, `tipos`, `evolucoes`) aos campos do record e coloca **todos os demais campos** (ex: `ataques`, `fraquezas`, `estatisticas`) em `atributosExtras` — garantindo RF-009 sem exigir que o cliente aninhe os extras sob uma chave específica; coberto pelo teste `postComAtributosTopLevelDeveMapearParaAtributosExtras` em `PokemonControllerTest`
 - [ ] T043 Executar todos os cenários do `quickstart.md` manualmente com containers Docker reais (PostgreSQL + MongoDB) e confirmar que todos os `curl` retornam os códigos e corpos esperados
 
 ---
