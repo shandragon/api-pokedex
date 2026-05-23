@@ -120,4 +120,24 @@ class PokemonControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json("[]"));
     }
+
+    @Test
+    void postComAtributosTopLevelDeveMapearParaAtributosExtras() throws Exception {
+        when(servico.criar(any(PokemonRequisicaoDTO.class))).thenAnswer(invocation -> {
+            PokemonRequisicaoDTO dto = invocation.getArgument(0);
+            return new PokemonRespostaDTO(UUID.randomUUID().toString(), dto.numeroPokdex(),
+                    dto.nome(), List.of(), List.of(), dto.atributosExtras());
+        });
+
+        mockMvc.perform(post("/api/pokemon")
+                        .header(CABECALHO_AUTH, "Bearer " + TOKEN)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"numeroPokdex\":1,\"nome\":\"Bulbasaur\",\"tipos\":[\"Planta\"]," +
+                                "\"ataques\":[\"Absorver\"],\"fraquezas\":[\"Fogo\"]," +
+                                "\"estatisticas\":{\"hp\":45,\"ataque\":49}}"))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.atributosExtras.ataques[0]").value("Absorver"))
+                .andExpect(jsonPath("$.atributosExtras.fraquezas[0]").value("Fogo"))
+                .andExpect(jsonPath("$.atributosExtras.estatisticas.hp").value(45));
+    }
 }
