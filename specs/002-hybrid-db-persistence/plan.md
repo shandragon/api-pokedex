@@ -99,48 +99,50 @@ src/main/java/br/edu/shandragon/pokedex/
 │   └── UuidUtil.java                         # NOVO — gerador UUID V7 centralizado
 │
 ├── pokemon/
-│   ├── entidade/
+│   ├── entity/
 │   │   ├── Pokemon.java                      # REFATORADO — @Entity JPA, @ManyToMany com Tipo, UUID v7
 │   │   ├── Tipo.java                         # REFATORADO — @Entity JPA, UUID v7 (era Long)
 │   │   └── Evolucao.java                     # REFATORADO — @Entity JPA, UUID v7 (era Long)
-│   ├── documento/
+│   ├── document/
 │   │   └── PokemonAtributos.java             # NOVO — @Document MongoDB, atributos flexíveis
-│   ├── repositorio/
+│   ├── repository/
 │   │   ├── jpa/
-│   │   │   ├── PokemonRepositorio.java       # REFATORADO — JpaRepository<Pokemon, UUID>
-│   │   │   ├── TipoRepositorio.java          # REFATORADO — JpaRepository<Tipo, UUID>
-│   │   │   └── EvolucaoRepositorio.java      # REFATORADO — JpaRepository<Evolucao, UUID>
+│   │   │   ├── PokemonRepository.java        # REFATORADO — JpaRepository<Pokemon, UUID>
+│   │   │   ├── TipoRepository.java           # REFATORADO — JpaRepository<Tipo, UUID>
+│   │   │   └── EvolucaoRepository.java       # REFATORADO — JpaRepository<Evolucao, UUID>
 │   │   └── mongo/
-│   │       └── PokemonAtributosRepositorio.java  # NOVO — MongoRepository<PokemonAtributos, String>
-│   ├── servico/
-│   │   └── PokemonServico.java               # REFATORADO — merge PostgreSQL + MongoDB na leitura
+│   │       └── PokemonAtributosRepository.java   # NOVO — MongoRepository<PokemonAtributos, String>
+│   ├── service/
+│   │   └── PokemonService.java               # REFATORADO — merge PostgreSQL + MongoDB na leitura
 │   ├── controller/
 │   │   └── PokemonController.java            # REFATORADO — adiciona POST /api/pokemon; migra GET existentes
 │   └── dto/
 │       ├── PokemonRequisicaoDTO.java          # NOVO — corpo da requisição (fixos + flexíveis)
+│       ├── PokemonRequisicaoDTODeserializer.java  # NOVO — captura campos de 1º nível como atributosExtras
 │       └── PokemonRespostaDTO.java            # NOVO — resposta unificada (fixos + flexíveis)
 │
 └── usuario/
-    ├── entidade/
+    ├── entity/
     │   └── Usuario.java                      # NOVO — @Entity JPA, UUID v7
-    ├── repositorio/
+    ├── repository/
     │   └── jpa/
-    │       └── UsuarioRepositorio.java       # NOVO — JpaRepository<Usuario, UUID>
-    ├── servico/
-    │   └── UsuarioServico.java               # NOVO
+    │       └── UsuarioRepository.java        # NOVO — JpaRepository<Usuario, UUID>
+    ├── service/
+    │   └── UsuarioService.java               # NOVO
     ├── controller/
     │   └── UsuarioController.java            # NOVO
     └── dto/
         ├── UsuarioRequisicaoDTO.java          # NOVO
-        └── UsuarioRespostaDTO.java            # NOVO
+        ├── UsuarioRespostaDTO.java            # NOVO — inclui e-mail (uso interno/admin)
+        └── UsuarioRespostaPublicaDTO.java     # NOVO — apenas id+nome (endpoints públicos)
 
 # Classes REMOVIDAS ou SUBSTITUÍDAS:
-# model/Pokemon.java              → pokemon/entidade/Pokemon.java        (refatorado: UUID v7, @ManyToMany Tipo)
-# model/Tipo.java                 → pokemon/entidade/Tipo.java           (refatorado: UUID v7, era Long)
-# model/Evolucao.java             → pokemon/entidade/Evolucao.java       (refatorado: UUID v7, era Long)
-# repository/PokemonRepository.java   → pokemon/repositorio/jpa/PokemonRepositorio.java
-# repository/TipoRepository.java       → pokemon/repositorio/jpa/TipoRepositorio.java
-# repository/EvolucaoRepository.java   → pokemon/repositorio/jpa/EvolucaoRepositorio.java
+# model/Pokemon.java              → pokemon/entity/Pokemon.java          (refatorado: UUID v7, @ManyToMany Tipo)
+# model/Tipo.java                 → pokemon/entity/Tipo.java             (refatorado: UUID v7, era Long)
+# model/Evolucao.java             → pokemon/entity/Evolucao.java         (refatorado: UUID v7, era Long)
+# repository/PokemonRepository.java   → pokemon/repository/jpa/PokemonRepository.java
+# repository/TipoRepository.java       → pokemon/repository/jpa/TipoRepository.java
+# repository/EvolucaoRepository.java   → pokemon/repository/jpa/EvolucaoRepository.java
 # dto/PokemonDTO.java             → pokemon/dto/PokemonRespostaDTO.java
 # dto/TipoDTO.java                → eliminado (tipos retornados como List<String> de nomes)
 # dto/EvolucaoDTO.java            → embutido em PokemonRespostaDTO
@@ -149,23 +151,23 @@ src/main/java/br/edu/shandragon/pokedex/
 ```text
 src/test/java/br/edu/shandragon/pokedex/
 ├── pokemon/
-│   ├── repositorio/
-│   │   ├── PokemonRepositorioIntegracaoTest.java       # NOVO — testa JPA com H2
-│   │   └── PokemonAtributosRepositorioIntegracaoTest.java  # NOVO — testa MongoDB embarcado
-│   ├── servico/
-│   │   └── PokemonServicoTest.java                     # REFATORADO — inclui mock do merge
+│   ├── repository/
+│   │   ├── PokemonRepositoryIntegrationTest.java        # NOVO — testa JPA com H2
+│   │   └── PokemonAtributosRepositoryIntegrationTest.java   # NOVO — testa MongoDB embarcado
+│   ├── service/
+│   │   └── PokemonServiceTest.java                     # REFATORADO — inclui mock do merge
 │   └── controller/
 │       └── PokemonControllerTest.java                  # REFATORADO
 └── usuario/
-    ├── repositorio/
-    │   └── UsuarioRepositorioIntegracaoTest.java        # NOVO — testa JPA com H2
-    ├── servico/
-    │   └── UsuarioServicoTest.java                      # NOVO
+    ├── repository/
+    │   └── UsuarioRepositoryIntegrationTest.java        # NOVO — testa JPA com H2
+    ├── service/
+    │   └── UsuarioServiceTest.java                      # NOVO
     └── controller/
         └── UsuarioControllerTest.java                   # NOVO
 ```
 
-**Decisão de estrutura**: Sub-pacotes `jpa/` e `mongo/` dentro de `repositorio/` permitem que o domínio `pokemon` use simultaneamente os dois bancos sem ambiguidade no scanning de componentes Spring (`@EnableJpaRepositories` e `@EnableMongoRepositories` apontam para sub-pacotes distintos).
+**Decisão de estrutura**: Sub-pacotes `jpa/` e `mongo/` dentro de `repository/` permitem que o domínio `pokemon` use simultaneamente os dois bancos sem ambiguidade no scanning de componentes Spring (`@EnableJpaRepositories` e `@EnableMongoRepositories` apontam para sub-pacotes distintos).
 
 ---
 
@@ -175,6 +177,6 @@ src/test/java/br/edu/shandragon/pokedex/
 |---------|------------|-------------------------------------|
 | Dois bancos de dados (PostgreSQL + MongoDB) | Requisito explícito: esquema fixo para atributos estruturados, esquema flexível para atributos em evolução | Apenas PostgreSQL com JSONB — não atende ao requisito explícito de usar MongoDB para o esquema flexível |
 | Entidade dividida (split entity) para Pokemon | Requisito explícito: nome/tipo/evolução no Postgres, ataques/fraquezas no MongoDB | Documento completo no MongoDB — perde integridade relacional (unicidade de numeroPokdex, FK de evolução) |
-| Sub-pacotes `jpa/` e `mongo/` | Necessário quando um domínio usa dois bancos — Spring Boot não consegue auto-detectar | Separação por domínio de pacote — inviável quando pokemon usa os dois bancos |
+| Sub-pacotes `jpa/` e `mongo/` dentro de `repository/` | Necessário quando um domínio usa dois bancos — Spring Boot não consegue auto-detectar | Separação por domínio de pacote — inviável quando pokemon usa os dois bancos |
 | Entidade `Tipo` separada (vs. @ElementCollection) | Tipos Pokémon são conjunto fechado — integridade de domínio exige validação contra tabela mestra; typos são rejeitados na criação | @ElementCollection com strings livres — aceita qualquer string sem validação |
 | Spring Security (token estático) | RF-010: endpoints de escrita DEVEM rejeitar requisições não autenticadas | Sem segurança — viola requisito funcional |
