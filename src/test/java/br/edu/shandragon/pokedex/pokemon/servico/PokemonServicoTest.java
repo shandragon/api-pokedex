@@ -2,6 +2,7 @@ package br.edu.shandragon.pokedex.pokemon.servico;
 
 import br.edu.shandragon.pokedex.pokemon.documento.PokemonAtributos;
 import br.edu.shandragon.pokedex.pokemon.dto.PokemonRequisicaoDTO;
+import br.edu.shandragon.pokedex.pokemon.entidade.Evolucao;
 import br.edu.shandragon.pokedex.pokemon.entidade.Pokemon;
 import br.edu.shandragon.pokedex.pokemon.entidade.Tipo;
 import br.edu.shandragon.pokedex.pokemon.repositorio.jpa.EvolucaoRepositorio;
@@ -22,6 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.lenient;
 
 @ExtendWith(MockitoExtension.class)
 class PokemonServicoTest {
@@ -41,6 +43,8 @@ class PokemonServicoTest {
     void setUp() {
         tipoPlanta = new Tipo(UUID.randomUUID(), "Planta");
         pokemonSalvo = new Pokemon(UUID.randomUUID(), 1, "Bulbasaur", Set.of(tipoPlanta));
+        lenient().when(evolucaoRepositorio.findByPokemonOrigemIdOrPokemonDestinoId(any(), any()))
+                .thenReturn(List.of());
     }
 
     @Test
@@ -124,5 +128,43 @@ class PokemonServicoTest {
 
         assertThatThrownBy(() -> servico.buscarPorId(UUID.randomUUID().toString()))
                 .isInstanceOf(ResponseStatusException.class);
+    }
+
+    @Test
+    void deveCriarPokemonComEvolucaoValida() {
+        var destino = new Pokemon(UUID.randomUUID(), 2, "Ivysaur", Set.of(tipoPlanta));
+        var evolucaoDTO = Map.<String, Object>of(
+                "idPokemonOrigem", pokemonSalvo.getId().toString(),
+                "idPokemonDestino", destino.getId().toString()
+        );
+
+        when(pokemonRepositorio.existsByNumeroPokdex(1)).thenReturn(false);
+        when(tipoRepositorio.findByNome("Planta")).thenReturn(Optional.of(tipoPlanta));
+        when(pokemonRepositorio.save(any(Pokemon.class))).thenReturn(pokemonSalvo);
+        when(pokemonRepositorio.findById(pokemonSalvo.getId())).thenReturn(Optional.of(pokemonSalvo));
+        when(pokemonRepositorio.findById(destino.getId())).thenReturn(Optional.of(destino));
+
+        var dto = new PokemonRequisicaoDTO(1, "Bulbasaur", List.of("Planta"), List.of(evolucaoDTO), Map.of());
+        servico.criar(dto);
+
+        verify(evolucaoRepositorio).save(any(Evolucao.class));
+    }
+
+    @Test
+    void deveCriarPokemonIgnorandoEvolucaoComReferenciasInvalidas() {
+        var evolucaoInvalida = Map.<String, Object>of(
+                "idPokemonOrigem", UUID.randomUUID().toString(),
+                "idPokemonDestino", UUID.randomUUID().toString()
+        );
+
+        when(pokemonRepositorio.existsByNumeroPokdex(1)).thenReturn(false);
+        when(tipoRepositorio.findByNome("Planta")).thenReturn(Optional.of(tipoPlanta));
+        when(pokemonRepositorio.save(any(Pokemon.class))).thenReturn(pokemonSalvo);
+        when(pokemonRepositorio.findById(any(UUID.class))).thenReturn(Optional.empty());
+
+        var dto = new PokemonRequisicaoDTO(1, "Bulbasaur", List.of("Planta"), List.of(evolucaoInvalida), Map.of());
+        servico.criar(dto);
+
+        verify(evolucaoRepositorio, never()).save(any());
     }
 }

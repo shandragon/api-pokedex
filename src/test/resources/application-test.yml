@@ -15,6 +15,10 @@ spring:
     init:
       mode: never
 
+  data:
+    mongodb:
+      port: 0
+
 app:
   seguranca:
     token-admin: token-teste

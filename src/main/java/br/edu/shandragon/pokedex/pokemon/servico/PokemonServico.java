@@ -51,6 +51,7 @@ public class PokemonServico {
         var pokemon = new Pokemon(id, dto.numeroPokdex(), dto.nome(), tipos);
         var salvo = pokemonRepositorio.save(pokemon);
 
+        salvarEvolucoes(dto.evolucoes());
         salvarAtributosFlexiveis(id.toString(), dto.atributosExtras());
 
         return montar(salvo, dto.atributosExtras() != null ? dto.atributosExtras() : Map.of());
@@ -112,6 +113,23 @@ public class PokemonServico {
         return tipos;
     }
 
+    private void salvarEvolucoes(List<Map<String, Object>> evolucoes) {
+        if (evolucoes == null || evolucoes.isEmpty()) return;
+        for (var e : evolucoes) {
+            try {
+                var origemId = UUID.fromString((String) e.get("idPokemonOrigem"));
+                var destinoId = UUID.fromString((String) e.get("idPokemonDestino"));
+                var origem = pokemonRepositorio.findById(origemId).orElse(null);
+                var destino = pokemonRepositorio.findById(destinoId).orElse(null);
+                if (origem != null && destino != null) {
+                    evolucaoRepositorio.save(new Evolucao(UuidUtil.gerarV7(), origem, destino));
+                }
+            } catch (Exception ignorada) {
+                // referência inválida — evolução ignorada sem falhar a criação
+            }
+        }
+    }
+
     private void salvarAtributosFlexiveis(String id, Map<String, Object> extras) {
         if (extras == null || extras.isEmpty()) return;
         try {
@@ -126,12 +144,17 @@ public class PokemonServico {
                 .map(Tipo::getNome)
                 .sorted()
                 .toList();
+        var evolucoes = evolucaoRepositorio
+                .findByPokemonOrigemIdOrPokemonDestinoId(pokemon.getId(), pokemon.getId())
+                .stream()
+                .map(this::evolucaoParaMapa)
+                .toList();
         return new PokemonRespostaDTO(
                 pokemon.getId().toString(),
                 pokemon.getNumeroPokdex(),
                 pokemon.getNome(),
                 tiposNomes,
-                List.of(),
+                evolucoes,
                 extras
         );
     }
