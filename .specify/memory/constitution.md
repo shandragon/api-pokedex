@@ -1,10 +1,10 @@
 <!-- Sync Impact Report:
-Version change: 1.1.1 → 1.1.2
-Modified principles: Tradução total para PT-BR
+Version change: 1.1.2 → 1.1.3
+Modified principles: Governança — Idioma Oficial (adição da exceção para termos técnicos canônicos)
 Added sections: N/A
 Removed sections: N/A
-Templates requiring updates: ⚠ pendente
-Follow-up TODOs: Verificar conformidade de todos os arquivos do projeto com o padrão PT-BR.
+Templates requiring updates: ✅ nenhum template referencia diretamente a política de idioma; nenhuma atualização necessária
+Follow-up TODOs: N/A
 -->
 # Constituição da API Pokémon
 
@@ -35,9 +35,16 @@ O desenvolvimento segue um processo rigoroso:
 
 ## Governança
 Esta constituição substitui todas as outras práticas.
-1. **Idioma Oficial**: O idioma oficial do projeto é o Português do Brasil (PT-BR). Toda a documentação, comentários de código e artefatos de projeto DEVEM seguir este padrão.
+1. **Idioma Oficial**: O idioma oficial do projeto é o Português do Brasil (PT-BR). Toda a
+   documentação, comentários de código e artefatos de projeto DEVEM seguir este padrão.
+   **Exceção**: termos técnicos com nomenclatura canônica estabelecida em inglês DEVEM manter
+   o nome original, sem tradução. Isso inclui: padrões de projeto (Repository, Service,
+   Controller, Factory, Observer, Strategy, Builder), padrões arquiteturais (MVC, REST, CQRS,
+   Event Sourcing), convenções de frameworks (Spring Boot, JPA, MongoDB) e siglas amplamente
+   reconhecidas (API, DTO, UUID, TDD, CI/CD). Traduzir esses termos introduz ambiguidade e
+   dificulta a consulta à documentação oficial das tecnologias envolvidas.
 2. Emendas exigem documentação da alteração proposta, análise de impacto e aprovação.
 3. Todos os pull requests e revisões devem verificar a conformidade com estes princípios.
 4. Dívidas técnicas devem ser rastreadas e priorizadas.
 
-**Versão**: 1.1.2 | **Ratificada**: 2026-04-26 | **Última Emenda**: 2026-04-26
+**Versão**: 1.1.3 | **Ratificada**: 2026-04-26 | **Última Emenda**: 2026-05-23
