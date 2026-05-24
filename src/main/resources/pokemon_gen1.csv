@@ -1,0 +1,152 @@
+numeroPokedex,nome,tipos,hp,ataque,defesa,especial,velocidade,ataques,fraquezas,proximasEvolucoes
+1,Bulbasaur,Planta;Veneno,45,49,49,65,45,Investida;Rosnar;Chicote de Vinha,Fogo;Gelo;Voador;Psíquico,Ivysaur
+2,Ivysaur,Planta;Veneno,60,62,63,80,60,Folha Navalha;Pó de Sono;Semente Sanguessuga,Fogo;Gelo;Voador;Psíquico,Venusaur
+3,Venusaur,Planta;Veneno,80,82,83,100,80,Raio Solar;Dança das Pétalas;Síntese,Fogo;Gelo;Voador;Psíquico,
+4,Charmander,Fogo,39,52,43,50,65,Arranhão;Brasa;Rosnar,Água;Terra;Pedra,Charmeleon
+5,Charmeleon,Fogo,58,64,58,65,80,Lança-chamas;Fúria;Garra de Metal,Água;Terra;Pedra,Charizard
+6,Charizard,Fogo;Voador,78,84,78,85,100,Explosão de Fogo;Voar;Redemoinho de Fogo,Água;Elétrico;Pedra,
+7,Squirtle,Água,44,48,65,50,43,Investida;Bolhas;Pistola d'Água,Planta;Elétrico,Wartortle
+8,Wartortle,Água,59,63,80,65,58,Mordida;Giro Rápido;Proteção,Planta;Elétrico,Blastoise
+9,Blastoise,Água,79,83,100,85,78,Hidro Canhão;Quebra-crânio;Surfar,Planta;Elétrico,
+10,Caterpie,Inseto,45,30,35,20,45,Investida;Estilingue de Seda,Fogo;Voador;Pedra,Metapod
+11,Metapod,Inseto,50,20,55,25,30,Endurecer,Fogo;Voador;Pedra,Butterfree
+12,Butterfree,Inseto;Voador,60,45,50,80,70,Confusão;Pó de Veneno;Ventania,Fogo;Elétrico;Gelo;Pedra,
+13,Weedle,Inseto;Veneno,40,35,30,20,50,Picada Venenosa;Estilingue de Seda,Fogo;Voador;Psíquico;Pedra,Kakuna
+14,Kakuna,Inseto;Veneno,45,25,50,25,35,Endurecer,Fogo;Voador;Psíquico;Pedra,Beedrill
+15,Beedrill,Inseto;Veneno,65,80,40,45,75,Ataque de Fúria;Agulha Dupla;Agilidade,Fogo;Voador;Psíquico;Pedra,
+16,Pidgey,Normal;Voador,40,45,40,35,56,Ataque de Areia;Ventania;Ataque Rápido,Elétrico;Gelo;Pedra,Pidgeotto
+17,Pidgeotto,Normal;Voador,63,60,55,50,71,Tornado;Agilidade;Ataque de Asa,Elétrico;Gelo;Pedra,Pidgeot
+18,Pidgeot,Normal;Voador,83,80,75,70,91,Ataque do Céu;Espelho de Movimento;Redemoinho,Elétrico;Gelo;Pedra,
+19,Rattata,Normal,30,56,35,25,72,Ataque Rápido;Hiper Presa;Foco de Energia,Lutador,Raticate
+20,Raticate,Normal,55,81,60,50,97,Super Presa;Golpe Duplo;Rugido,Lutador,
+21,Spearow,Normal;Voador,40,60,30,31,70,Bicada;Rosnar;Fúria,Elétrico;Gelo;Pedra,Fearow
+22,Fearow,Normal;Voador,65,90,65,61,100,Ataque de Furação;Agilidade;Espelho de Movimento,Elétrico;Gelo;Pedra,
+23,Ekans,Veneno,35,60,44,40,55,Envolver;Olhar Malicioso;Picada Venenosa,Terra;Psíquico,Arbok
+24,Arbok,Veneno,60,85,69,65,80,Mastigada;Ácido;Clarão,Terra;Psíquico,
+25,Pikachu,Elétrico,35,55,30,50,90,Choque do Trovão;Onda de Trovão;Ataque Rápido,Terra,Raichu
+26,Raichu,Elétrico,60,90,55,90,100,Trovão;Soco do Trovão;Relâmpago,Terra,
+27,Sandshrew,Terra,50,75,85,20,40,Arranhão;Defesa de Areia;Cortada Dupla,Água;Gelo;Planta,Sandslash
+28,Sandslash,Terra,75,100,110,45,65,Cortada de Fúria;Terremoto;Rolagem,Água;Gelo;Planta,
+29,Nidoran F,Veneno,55,47,52,40,41,Investida;Rosnar;Chute Duplo,Terra;Psíquico,Nidorina
+30,Nidorina,Veneno,70,62,67,55,56,Mordida;Picada Venenosa;Garra de Fúria,Terra;Psíquico,Nidoqueen
+31,Nidoqueen,Veneno;Terra,90,82,87,75,76,Poder da Terra;Superpoder;Bomba de Lodo,Água;Gelo;Planta;Psíquico,
+32,Nidoran M,Veneno,46,57,40,40,50,Investida;Olhar Malicioso;Chute Duplo,Terra;Psíquico,Nidorino
+33,Nidorino,Veneno,61,72,57,55,65,Chifrada;Picada Venenosa;Foco de Energia,Terra;Psíquico,Nidoking
+34,Nidoking,Veneno;Terra,81,92,77,75,85,Megachifre;Terremoto;Bomba de Lodo,Água;Gelo;Planta;Psíquico,
+35,Clefairy,Normal,70,45,48,60,35,Metrônomo;Luz da Lua;Tapa Duplo,Lutador,Clefable
+36,Clefable,Normal,95,70,73,85,60,Canto;Raio Cósmico;Poder da Lua,Lutador,
+37,Vulpix,Fogo,38,41,40,50,65,Brasa;Olhar Confuso;Ataque Rápido,Água;Terra;Pedra,Ninetales
+38,Ninetales,Fogo,73,76,75,90,100,Explosão de Fogo;Vontade de Fogo;Pulso Sombrio,Água;Terra;Pedra,
+39,Jigglypuff,Normal,115,45,20,25,20,Canto;Tapa Duplo;Corpo Redondo,Lutador,Wigglytuff
+40,Wigglytuff,Normal,140,70,45,50,45,Voz Hiperativa;Jogo Sujo;Impacto Gigante,Lutador,
+41,Zubat,Veneno;Voador,40,45,35,30,55,Sugar Sangue;Mordida;Ventania,Elétrico;Gelo;Psíquico;Pedra,Golbat
+42,Golbat,Veneno;Voador,75,80,70,65,90,Raio Confuso;Veneno Presa;Ataque de Asa,Elétrico;Gelo;Psíquico;Pedra,
+43,Oddish,Planta;Veneno,45,50,55,75,30,Absorver;Pó de Sono;Ácido,Fogo;Gelo;Voador;Psíquico,Gloom
+44,Gloom,Planta;Veneno,60,65,70,85,40,Dreno de Giga;Pó de Veneno;Pétala Dançante,Fogo;Gelo;Voador;Psíquico,Vileplume
+45,Vileplume,Planta;Veneno,75,80,85,100,50,Raio Solar;Aroma Suave;Pétala de Dança,Fogo;Gelo;Voador;Psíquico,
+46,Paras,Inseto;Planta,35,70,55,45,25,Arranhão;Esporo;Semente Sanguessuga,Fogo;Voador;Gelo;Veneno;Pedra;Inseto,Parasect
+47,Parasect,Inseto;Planta,60,95,80,60,30,Corte de X;Esporo;Giga Dreno,Fogo;Voador;Gelo;Veneno;Pedra;Inseto,
+48,Venonat,Inseto;Veneno,60,55,50,40,45,Investida;Pó de Sono;Confusão,Fogo;Voador;Psíquico;Pedra,Venomoth
+49,Venomoth,Inseto;Veneno,70,65,60,90,90,Ventania;Psíquico;Bomba de Lodo,Fogo;Voador;Psíquico;Pedra,
+50,Diglett,Terra,10,55,25,35,95,Arranhão;Rosnar;Tapa de Lama,Água;Gelo;Planta,Dugtrio
+51,Dugtrio,Terra,35,80,50,50,120,Terremoto;Corte de Areia;Magnitude,Água;Gelo;Planta,
+52,Meowth,Normal,40,45,35,40,90,Arranhão;Rosnar;Dia de Pagamento,Lutador,Persian
+53,Persian,Normal,65,70,60,65,115,Mordida;Giro Cortante;Fúria,Lutador,
+54,Psyduck,Água,50,52,48,50,55,Arranhão;Pistola d'Água;Confusão,Planta;Elétrico,Golduck
+55,Golduck,Água,80,82,78,80,85,Surfar;Psíquico;Hidro Bomba,Planta;Elétrico,
+56,Mankey,Lutador,40,80,35,35,70,Arranhão;Chute Baixo;Fúria,Voador;Psíquico,Primeape
+57,Primeape,Lutador,65,105,60,60,95,Golpe de Karatê;Fúria;Combate Próximo,Voador;Psíquico,
+58,Growlithe,Fogo,55,70,45,50,60,Brasa;Rosnar;Roda de Fogo,Água;Terra;Pedra,Arcanine
+59,Arcanine,Fogo,90,110,80,80,95,Velocidade Extrema;Lança-chamas;Rugido,Água;Terra;Pedra,
+60,Poliwag,Água,40,50,40,40,90,Bolhas;Pistola d'Água;Hipnose,Planta;Elétrico,Poliwhirl
+61,Poliwhirl,Água,65,65,65,50,90,Tapa Duplo;Jato d'Água;Quebra-chão,Planta;Elétrico,Poliwrath
+62,Poliwrath,Água;Lutador,90,85,95,70,70,Submissão;Surfar;Corte de Tijolo,Planta;Elétrico;Voador;Psíquico,
+63,Abra,Psíquico,25,20,15,105,90,Teletransporte,Inseto;Fantasma;Sombrio,Kadabra
+64,Kadabra,Psíquico,40,35,30,120,105,Confusão;Raio Psíquico;Refletir,Inseto;Fantasma;Sombrio,Alakazam
+65,Alakazam,Psíquico,55,50,45,135,120,Psíquico;Recuperar;Barreira,Inseto;Fantasma;Sombrio,
+66,Machop,Lutador,70,80,50,35,35,Tapa;Golpe de Karatê;Foco de Energia,Voador;Psíquico,Machoke
+67,Machoke,Lutador,80,100,70,50,45,Arremesso Vital;Submissão;Força,Voador;Psíquico,Machamp
+68,Machamp,Lutador,90,130,80,65,55,Golpe Dinâmico;Combate Próximo;Corte Cruzado,Voador;Psíquico,
+69,Bellsprout,Planta;Veneno,50,75,35,70,40,Chicote de Vinha;Rosnar;Ácido,Fogo;Gelo;Voador;Psíquico,Weepinbell
+70,Weepinbell,Planta;Veneno,65,90,50,85,55,Folha Navalha;Pó de Sono;Bomba de Lodo,Fogo;Gelo;Voador;Psíquico,Victreebel
+71,Victreebel,Planta;Veneno,80,105,65,100,70,Folha Mágica;Dreno de Giga;Dança das Pétalas,Fogo;Gelo;Voador;Psíquico,
+72,Tentacool,Água;Veneno,40,40,35,100,70,Bolhas;Ácido;Envolver,Terra;Elétrico;Psíquico,Tentacruel
+73,Tentacruel,Água;Veneno,80,70,65,120,100,Hidro Bomba;Bomba de Lodo;Raio de Gelo,Terra;Elétrico;Psíquico,
+74,Geodude,Pedra;Terra,40,80,100,30,20,Investida;Defesa de Areia;Lançamento de Rocha,Água;Planta;Lutador;Terra;Gelo,Graveler
+75,Graveler,Pedra;Terra,55,95,115,45,35,Desmoronamento;Magnitude;Terremoto,Água;Planta;Lutador;Terra;Gelo,Golem
+76,Golem,Pedra;Terra,80,110,130,55,45,Explosão;Giga Impacto;Giro de Pedra,Água;Planta;Lutador;Terra;Gelo,
+77,Ponyta,Fogo,50,85,55,65,90,Brasa;Pisoteio;Chamas,Água;Terra;Pedra,Rapidash
+78,Rapidash,Fogo,65,100,70,80,105,Roda de Fogo;Agilidade;Ataque de Fúria,Água;Terra;Pedra,
+79,Slowpoke,Água;Psíquico,90,65,65,40,15,Maldição;Jato d'Água;Confusão,Elétrico;Planta;Inseto;Fantasma;Sombrio,Slowbro
+80,Slowbro,Água;Psíquico,95,75,110,80,30,Amnésia;Psíquico;Surfar,Elétrico;Planta;Inseto;Fantasma;Sombrio,
+81,Magnemite,Elétrico,25,35,70,95,45,Choque do Trovão;Onda de Trovão;Bomba de Ímã,Terra;Fogo;Lutador,Magneton
+82,Magneton,Elétrico,50,60,95,120,70,Trovão;Canhão de Flash;Descarga,Terra;Fogo;Lutador,
+83,Farfetch'd,Normal;Voador,52,65,55,58,60,Corte;Bicada;Agilidade,Elétrico;Gelo;Pedra,
+84,Doduo,Normal;Voador,35,85,45,35,75,Bicada;Ataque de Fúria;Agilidade,Elétrico;Gelo;Pedra,Dodrio
+85,Dodrio,Normal;Voador,60,110,70,60,100,Bico Triplo;Fúria;Ataque de Asa,Elétrico;Gelo;Pedra,
+86,Seel,Água,65,45,55,70,45,Cabeçada;Jato d'Água;Raio de Gelo,Elétrico;Planta,Dewgong
+87,Dewgong,Água;Gelo,90,70,80,95,70,Aurora Boreal;Hidro Bomba;Nevasca,Elétrico;Planta;Lutador;Pedra,
+88,Grimer,Veneno,80,80,50,40,25,Tapa;Minimizar;Lama,Terra;Psíquico,Muk
+89,Muk,Veneno,105,105,75,65,50,Bomba de Lodo;Ácido;Armadura ácida,Terra;Psíquico,
+90,Shellder,Água,30,65,100,45,40,Tackle;Retirada;Jato d'Água,Elétrico;Planta,Cloyster
+91,Cloyster,Água;Gelo,50,95,180,85,70,Espigão;Nevasca;Hidro Bomba,Elétrico;Planta;Lutador;Pedra,
+92,Gastly,Fantasma;Veneno,30,35,30,100,80,Lamber;Raio Confuso;Maldição,Terra;Psíquico;Fantasma;Sombrio,Haunter
+93,Haunter,Fantasma;Veneno,45,50,45,115,95,Soco Sombrio;Pesadelo;Olhar Malicioso,Terra;Psíquico;Fantasma;Sombrio,Gengar
+94,Gengar,Fantasma;Veneno,60,65,60,130,110,Bola Sombria;Hipnose;Comedor de Sonhos,Terra;Psíquico;Fantasma;Sombrio,
+95,Onix,Pedra;Terra,35,45,160,30,70,Envolver;Lançamento de Rocha;Desmoronamento,Água;Planta;Lutador;Terra;Gelo,
+96,Drowzee,Psíquico,60,48,45,90,42,Luta;Confusão;Hipnose,Inseto;Fantasma;Sombrio,Hypno
+97,Hypno,Psíquico,85,73,70,115,67,Psíquico;Meditar;Amnésia,Inseto;Fantasma;Sombrio,
+98,Krabby,Água,30,105,90,25,50,Bolhas;Martelada;Guilhotina,Elétrico;Planta,Kingler
+99,Kingler,Água,55,130,115,50,75,Jato d'Água;Pinça Cruzada;Poder do Caranguejo,Elétrico;Planta,
+100,Voltorb,Elétrico,40,30,50,55,100,Investida;Autodestruição;Explosão,Terra,Electrode
+101,Electrode,Elétrico,60,50,70,80,140,Relâmpago;Trovão;Descarga,Terra,
+102,Exeggcute,Planta;Psíquico,60,40,80,60,40,Refletir;Confusão;Semente Sanguessuga,Fogo;Gelo;Voador;Inseto;Fantasma;Sombrio,Exeggutor
+103,Exeggutor,Planta;Psíquico,95,95,85,125,55,Ovo Bomba;Psíquico;Raio Solar,Fogo;Gelo;Voador;Inseto;Fantasma;Sombrio,
+104,Cubone,Terra,50,50,95,40,35,Rosnar;Osso Bumerangue;Fúria,Água;Gelo;Planta,Marowak
+105,Marowak,Terra,60,80,110,50,45,Clube de Ossos;Terremoto;Rolagem,Água;Gelo;Planta,
+106,Hitmonlee,Lutador,50,120,53,35,87,Chute Duplo;Mega Chute;Chute de Pulo Alto,Voador;Psíquico,
+107,Hitmonchan,Lutador,50,105,79,35,76,Soco Cometa;Soco de Fogo;Soco de Gelo,Voador;Psíquico,
+108,Lickitung,Normal,90,55,75,60,30,Lamber;Tapa;Pisoteio,Lutador,
+109,Koffing,Veneno,40,65,95,60,35,Investida;Minimizar;Fumaça,Terra;Psíquico,Weezing
+110,Weezing,Veneno,65,90,120,85,60,Bomba de Lodo;Autodestruição;Gás Venenoso,Terra;Psíquico,
+111,Rhyhorn,Terra;Pedra,80,85,95,30,25,Chifrada;Pisoteio;Perfurar,Água;Planta;Lutador;Terra;Gelo,Rhydon
+112,Rhydon,Terra;Pedra,105,130,120,45,40,Terremoto;Megachifre;Quebra-rocha,Água;Planta;Lutador;Terra;Gelo,
+113,Chansey,Normal,250,5,5,105,50,Tapa Duplo;Canto;Ovo Bomba,Lutador,
+114,Tangela,Planta,65,55,115,100,60,Constrição;Chicote de Vinha;Esporo,Fogo;Gelo;Voador;Inseto;Veneno,
+115,Kangaskhan,Normal,105,95,80,40,90,Mordida;Mega Soco;Fúria,Lutador,
+116,Horsea,Água,30,40,70,70,60,Bolhas;Pistola d'Água;Agilidade,Elétrico;Planta,Seadra
+117,Seadra,Água,55,65,95,95,85,Hidro Bomba;Pulso do Dragão;Raio de Gelo,Elétrico;Planta,
+118,Goldeen,Água,45,67,60,50,63,Bicada;Peculiaridade;Jato d'Água,Elétrico;Planta,Seaking
+119,Seaking,Água,80,92,65,80,68,Cascata;Megachifre;Agilidade,Elétrico;Planta,
+120,Staryu,Água,30,45,55,70,85,Investida;Jato d'Água;Recuperar,Elétrico;Planta,Starmie
+121,Starmie,Água;Psíquico,60,75,85,100,115,Psíquico;Raio de Gelo;Hidro Bomba,Elétrico;Planta;Inseto;Fantasma;Sombrio,
+122,Mr. Mime,Psíquico,40,45,65,100,90,Barreira;Refletir;Confusão,Inseto;Fantasma;Sombrio,
+123,Scyther,Inseto;Voador,70,110,80,55,105,Corte;Agilidade;Ataque de Asa,Fogo;Elétrico;Gelo;Pedra,
+124,Jynx,Gelo;Psíquico,65,50,35,95,95,Tapa Duplo;Beijo Amoroso;Nevasca,Fogo;Pedra;Inseto;Fantasma;Sombrio,
+125,Electabuzz,Elétrico,65,83,57,85,105,Soco do Trovão;Descarga;Relâmpago,Terra,
+126,Magmar,Fogo,65,95,57,85,93,Soco de Fogo;Lança-chamas;Explosão de Fogo,Água;Terra;Pedra,
+127,Pinsir,Inseto,65,125,100,55,85,Aperto;Guilhotina;Submissão,Fogo;Voador;Pedra,
+128,Tauros,Normal,75,100,95,70,110,Investida;Fúria;Rugido,Lutador,
+129,Magikarp,Água,20,10,55,20,80,Splash;Investida,Elétrico;Planta,Gyarados
+130,Gyarados,Água;Voador,95,125,79,100,81,Mordida;Hidro Bomba;Fúria do Dragão,Elétrico;Pedra,
+131,Lapras,Água;Gelo,130,85,80,95,60,Canto;Raio de Gelo;Hidro Bomba,Elétrico;Planta;Lutador;Pedra,
+132,Ditto,Normal,48,48,48,48,48,Transformar,Lutador,
+133,Eevee,Normal,55,55,50,65,55,Investida;Rosnar;Ataque Rápido,Lutador,Vaporeon;Jolteon;Flareon
+134,Vaporeon,Água,130,65,60,110,65,Armadura ácida;Hidro Bomba;Surfar,Elétrico;Planta,
+135,Jolteon,Elétrico,65,65,60,110,130,Agulha Dupla;Trovão;Relâmpago,Terra,
+136,Flareon,Fogo,65,130,60,110,65,Brasa;Lança-chamas;Explosão de Fogo,Água;Terra;Pedra,
+137,Porygon,Normal,65,60,70,75,40,Conversão;Auto-Recuperar;Psíquico,Lutador,
+138,Omanyte,Pedra;Água,35,40,100,90,35,Retirada;Pistola d'Água;Lançamento de Rocha,Planta;Elétrico;Lutador;Terra,Omastar
+139,Omastar,Pedra;Água,70,60,125,115,55,Poder Antigo;Hidro Bomba;Pico de Gelo,Planta;Elétrico;Lutador;Terra,
+140,Kabuto,Pedra;Água,30,80,90,45,55,Arranhão;Endurecer;Absorver,Planta;Elétrico;Lutador;Terra,Kabutops
+141,Kabutops,Pedra;Água,60,115,105,70,80,Corte de X;Hidro Bomba;Mega Saco,Planta;Elétrico;Lutador;Terra,
+142,Aerodactyl,Pedra;Voador,80,105,65,60,130,Mordida;Agilidade;Ataque de Asa,Água;Elétrico;Gelo;Pedra,
+143,Snorlax,Normal,160,110,65,65,30,Cabeçada;Amnésia;Descanso,Lutador,
+144,Articuno,Gelo;Voador,90,85,100,125,85,Raio de Gelo;Nevasca;Agilidade,Fogo;Elétrico;Pedra,
+145,Zapdos,Elétrico;Voador,90,90,85,125,100,Choque do Trovão;Trovão;Agilidade,Gelo;Pedra,
+146,Moltres,Fogo;Voador,90,100,90,125,90,Brasa;Lança-chamas;Agilidade,Água;Elétrico;Pedra,
+147,Dratini,Dragão,41,64,45,50,50,Envolver;Onda de Trovão;Fúria do Dragão,Gelo;Dragão,Dragonair
+148,Dragonair,Dragão,61,84,65,70,70,Jato d'Água;Hiper Raio;Cauda do Dragão,Gelo;Dragão,Dragonite
+149,Dragonite,Dragão;Voador,91,134,95,100,80,Explosão de Fogo;Trovão;Nevasca,Gelo;Pedra;Dragão,
+150,Mewtwo,Psíquico,106,110,90,154,130,Psíquico;Barreira;Recuperar,Inseto;Fantasma;Sombrio,
+151,Mew,Psíquico,100,100,100,100,100,Transformar;Metrônomo;Psíquico,Inseto;Fantasma;Sombrio,
