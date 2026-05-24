@@ -22,7 +22,7 @@ spring:
       host: localhost
       port: 27017
       database: app_pokedex
-      authentication-database: app_pokedex
+      authentication-database: admin
 
 app:
   seguranca:
