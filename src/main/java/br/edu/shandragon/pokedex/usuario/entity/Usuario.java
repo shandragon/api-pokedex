@@ -33,7 +33,7 @@ public class Usuario {
     @Column(nullable = false, columnDefinition = "boolean default true")
     private boolean ativo = true;
 
-    @Column(name = "tentativas_falhas", nullable = false)
+    @Column(name = "tentativas_falhas", nullable = false, columnDefinition = "integer default 0")
     private int tentativasFalhas = 0;
 
     @Column(name = "bloqueado_ate")

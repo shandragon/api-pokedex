@@ -73,7 +73,7 @@ class AuthControllerTest {
                         .content("{\"email\":\"joao@example.com\",\"senha\":\"minhasenha123\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.token").value("jwt-token-gerado"))
-                .andExpect(jsonPath("$.expiraEm").exists());
+                .andExpect(jsonPath("$.expira_em").exists());
     }
 
     // T024 — US2: campos obrigatórios e credenciais inválidas

@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "8f2d5e1f-7b3b-4c5c-9d6c-3e3e3e3e3e3e",
 		"name": "Pokedex API",
-		"description": "Coleção completa da API Pokédex — persistência híbrida (PostgreSQL + MongoDB)",
+		"description": "Coleção completa da API Pokédex — persistência híbrida (PostgreSQL + MongoDB) com autenticação JWT (HS256) e sliding window via X-Token-Renovado.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"variable": [
@@ -17,6 +17,12 @@
 			"type": "string"
 		},
 		{
+			"key": "jwt_token",
+			"value": "",
+			"type": "string",
+			"description": "JWT emitido pelo POST /api/auth/login. Preenchido automaticamente pelo script do login e renovado pelo header X-Token-Renovado a cada requisição autenticada."
+		},
+		{
 			"key": "pokemon_id",
 			"value": "",
 			"type": "string"
@@ -28,6 +34,83 @@
 		}
 	],
 	"item": [
+		{
+			"name": "Autenticação",
+			"description": "Endpoints de autenticação JWT. Fluxo sugerido: (1) Cadastrar Usuário, (2) Login → jwt_token preenchido automaticamente, (3) usar Bearer {{jwt_token}} nas requisições protegidas, (4) Logout para revogar o token.",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    var json = pm.response.json();",
+									"    pm.collectionVariables.set('jwt_token', json.token);",
+									"    console.log('jwt_token salvo. Expira em:', json.expira_em);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"ash@pokemon.com\",\n  \"senha\": \"senhaSegura123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "login"]
+						},
+						"description": "Autentica um usuário cadastrado e emite um JWT (HS256).\n\n**Respostas**:\n- `200 OK` — `{ \"token\": \"<jwt>\", \"expira_em\": \"<ISO8601>\" }`. O script de teste salva o token em `jwt_token` automaticamente.\n- `400 Bad Request` — campo ausente ou e-mail com formato inválido.\n- `401 Unauthorized` — credenciais incorretas, conta inexistente, inativa ou bloqueada por excesso de tentativas. Mensagem genérica para impedir enumeração.\n\n**Sliding window**: a cada requisição autenticada via JWT, o servidor retorna um novo token no header `X-Token-Renovado`. O cliente deve substituir o token armazenado pelo novo valor para manter a sessão ativa."
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 204) {",
+									"    pm.collectionVariables.set('jwt_token', '');",
+									"    console.log('jwt_token removido — token revogado com sucesso.');",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/auth/logout",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "logout"]
+						},
+						"description": "Revoga o JWT atual adicionando seu `jti` à denylist. Tokens de outros dispositivos do mesmo usuário permanecem válidos.\n\n**Respostas**:\n- `204 No Content` — token revogado. O script de teste limpa `jwt_token` automaticamente.\n- `401 Unauthorized` — JWT ausente, inválido, expirado ou já revogado."
+					},
+					"response": []
+				}
+			]
+		},
 		{
 			"name": "Pokémon",
 			"item": [
@@ -41,6 +124,11 @@
 									"if (pm.response.code === 201) {",
 									"    var json = pm.response.json();",
 									"    pm.collectionVariables.set('pokemon_id', json.id);",
+									"}",
+									"var renovado = pm.response.headers.get('X-Token-Renovado');",
+									"if (renovado) {",
+									"    pm.collectionVariables.set('jwt_token', renovado);",
+									"    console.log('jwt_token renovado via X-Token-Renovado.');",
 									"}"
 								],
 								"type": "text/javascript"
@@ -68,7 +156,7 @@
 							"host": ["{{base_url}}"],
 							"path": ["api", "pokemon"]
 						},
-						"description": "Cria um novo Pokémon. Atributos fixos (numeroPokdex, nome, tipos) vão para o PostgreSQL; atributos adicionais (ataques, fraquezas, etc.) vão para o MongoDB. Requer token de autenticação."
+						"description": "Cria um novo Pokémon. Atributos fixos (numeroPokdex, nome, tipos) vão para o PostgreSQL; atributos adicionais (ataques, fraquezas, etc.) vão para o MongoDB. Requer token de autenticação.\n\nUse `Bearer {{token_admin}}` para o token de administração ou `Bearer {{jwt_token}}` para autenticação JWT de usuário."
 					},
 					"response": []
 				},
@@ -143,6 +231,11 @@
 									"if (pm.response.code === 201) {",
 									"    var json = pm.response.json();",
 									"    pm.collectionVariables.set('usuario_id', json.id);",
+									"}",
+									"var renovado = pm.response.headers.get('X-Token-Renovado');",
+									"if (renovado) {",
+									"    pm.collectionVariables.set('jwt_token', renovado);",
+									"    console.log('jwt_token renovado via X-Token-Renovado.');",
 									"}"
 								],
 								"type": "text/javascript"
@@ -170,7 +263,7 @@
 							"host": ["{{base_url}}"],
 							"path": ["api", "usuarios"]
 						},
-						"description": "Cadastra um novo usuário. Senha é armazenada como hash BCrypt — nunca retornada na resposta. Requer token de autenticação."
+						"description": "Cadastra um novo usuário. Senha é armazenada como hash BCrypt — nunca retornada na resposta. Requer token de autenticação.\n\nApós cadastrar, execute **Login** para obter um JWT e testar o fluxo de autenticação."
 					},
 					"response": []
 				},
