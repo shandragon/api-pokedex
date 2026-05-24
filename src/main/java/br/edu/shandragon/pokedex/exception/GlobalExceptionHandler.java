@@ -16,7 +16,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<Map<String, String>> handleResponseStatus(ResponseStatusException e) {
         return ResponseEntity.status(e.getStatusCode())
-                .body(Map.of("erro", e.getReason() != null ? e.getReason() : e.getMessage()));
+                .body(Map.of("mensagem", e.getReason() != null ? e.getReason() : e.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -25,6 +25,6 @@ public class GlobalExceptionHandler {
                 .map(f -> f.getField() + ": " + f.getDefaultMessage())
                 .collect(Collectors.joining("; "));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(Map.of("erro", mensagem));
+                .body(Map.of("mensagem", mensagem));
     }
 }

@@ -38,7 +38,7 @@ class UsuarioServiceTest {
 
     @BeforeEach
     void setUp() {
-        usuarioExemplo = new Usuario(UUID.randomUUID(), "Ash Ketchum", "ash@pokemon.com", "hashBcrypt", Instant.now());
+        usuarioExemplo = new Usuario(UUID.randomUUID(), "Ash Ketchum", "ash@pokemon.com", "hashBcrypt", Instant.now(), true, 0, null);
     }
 
     @Test

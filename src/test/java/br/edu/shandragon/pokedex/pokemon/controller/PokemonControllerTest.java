@@ -2,6 +2,7 @@ package br.edu.shandragon.pokedex.pokemon.controller;
 
 import br.edu.shandragon.pokedex.pokemon.dto.PokemonRequisicaoDTO;
 import br.edu.shandragon.pokedex.pokemon.dto.PokemonRespostaDTO;
+import br.edu.shandragon.pokedex.auth.service.JwtService;
 import br.edu.shandragon.pokedex.pokemon.service.PokemonService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import br.edu.shandragon.pokedex.config.SegurancaConfig;
@@ -40,6 +41,9 @@ class PokemonControllerTest {
 
     @MockitoBean
     private PokemonService servico;
+
+    @MockitoBean
+    private JwtService jwtService;
 
     private static final String TOKEN = "token-teste";
     private static final String CABECALHO_AUTH = "Authorization";

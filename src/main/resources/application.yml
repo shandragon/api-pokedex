@@ -22,8 +22,12 @@ spring:
       host: localhost
       port: 27017
       database: app_pokedex
-      authentication-database: app_pokedex
+      authentication-database: admin
 
 app:
   seguranca:
     token-admin: token-dev-alterar-em-producao
+    jwt-secret: YWx0ZXJhci1lbS1wcm9kdWNhby1jaGF2ZS1iYXNlNjQtbWluaW1vLTI1Ni1iaXRzLWFxdWk=
+    token-ttl-horas: 1
+    bloqueio-tentativas: 5
+    bloqueio-duracao-minutos: 15

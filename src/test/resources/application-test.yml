@@ -22,6 +22,10 @@ spring:
 app:
   seguranca:
     token-admin: token-teste
+    jwt-secret: Y2hhdmUtand0LXBhcmEtdGVzdGVzLWRlLWRlc2Vudm9sdmltZW50by0yNTZi
+    token-ttl-horas: 1
+    bloqueio-tentativas: 5
+    bloqueio-duracao-minutos: 15
 
 de:
   flapdoodle:

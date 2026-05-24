@@ -1,5 +1,6 @@
 package br.edu.shandragon.pokedex.config;
 
+import br.edu.shandragon.pokedex.auth.service.JwtService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +22,12 @@ public class SegurancaConfig {
     @Value("${app.seguranca.token-admin}")
     private String tokenAdmin;
 
+    private final JwtService jwtService;
+
+    public SegurancaConfig(JwtService jwtService) {
+        this.jwtService = jwtService;
+    }
+
     @Bean
     public SecurityFilterChain filtroDeSeguranca(HttpSecurity http) throws Exception {
         http
@@ -28,13 +35,14 @@ public class SegurancaConfig {
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(e -> e
                         .authenticationEntryPoint((req, res, ex) ->
                                 res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Autenticação necessária"))
                 )
-                .addFilterBefore(new FiltroBearerToken(tokenAdmin),
+                .addFilterBefore(new FiltroBearerToken(tokenAdmin, jwtService),
                         UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

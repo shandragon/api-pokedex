@@ -39,7 +39,10 @@ public class UsuarioService {
                 dto.nome(),
                 dto.email(),
                 codificadorDeSenha.encode(dto.senha()),
-                Instant.now()
+                Instant.now(),
+                true,
+                0,
+                null
         );
         var salvo = repositorio.save(usuario);
         return new UsuarioRespostaDTO(salvo.getId(), salvo.getNome(), salvo.getEmail(), salvo.getCriadoEm());

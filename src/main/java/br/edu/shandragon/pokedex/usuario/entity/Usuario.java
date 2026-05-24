@@ -29,4 +29,13 @@ public class Usuario {
 
     @Column(name = "criado_em", nullable = false, updatable = false)
     private Instant criadoEm;
+
+    @Column(nullable = false, columnDefinition = "boolean default true")
+    private boolean ativo = true;
+
+    @Column(name = "tentativas_falhas", nullable = false)
+    private int tentativasFalhas = 0;
+
+    @Column(name = "bloqueado_ate")
+    private Instant bloqueadoAte;
 }

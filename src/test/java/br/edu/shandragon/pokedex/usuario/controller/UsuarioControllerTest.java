@@ -3,6 +3,7 @@ package br.edu.shandragon.pokedex.usuario.controller;
 import br.edu.shandragon.pokedex.usuario.dto.UsuarioRequisicaoDTO;
 import br.edu.shandragon.pokedex.usuario.dto.UsuarioRespostaDTO;
 import br.edu.shandragon.pokedex.usuario.dto.UsuarioRespostaPublicaDTO;
+import br.edu.shandragon.pokedex.auth.service.JwtService;
 import br.edu.shandragon.pokedex.usuario.service.UsuarioService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import br.edu.shandragon.pokedex.config.SegurancaConfig;
@@ -41,6 +42,9 @@ class UsuarioControllerTest {
 
     @MockitoBean
     private UsuarioService servico;
+
+    @MockitoBean
+    private JwtService jwtService;
 
     private static final String TOKEN = "token-teste";
     private static final String CABECALHO_AUTH = "Authorization";
