@@ -10,7 +10,7 @@ Implementar autenticação de usuários cadastrados via e-mail e senha usando **
 
 ## Technical Context
 
-**Language/Version**: Java 21 (Spring Boot 3.4.3)
+**Language/Version**: Java 17 (Spring Boot 3.4.3)
 
 **Primary Dependencies**: Spring Web, Spring Security 6, Spring Data JPA, Lombok, Bean Validation (jakarta.validation), uuid-creator 5.3.3, **jjwt-api/jjwt-impl/jjwt-jackson 0.12.6 (nova)**
 

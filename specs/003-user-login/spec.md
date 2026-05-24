@@ -4,7 +4,7 @@
 
 **Created**: 2026-05-23
 
-**Status**: Draft
+**Status**: Implemented
 
 **Input**: User description: "O sistema deve permite que um usuário cadastrado efetue login usando seu email e senha."
 
@@ -20,8 +20,8 @@ Um usuário já cadastrado acessa a tela de login, informa seu e-mail e senha co
 
 **Acceptance Scenarios**:
 
-1. **Given** um usuário registrado com e-mail `joao@example.com` e senha válida, **When** ele submete o formulário de login com essas credenciais, **Then** o sistema autentica o usuário, gerando um token de acesso e redireciona para a área logada.
-2. **Given** o usuário está autenticado, **When** ele acessa qualquer página protegida, **Then** o sistema permite o acesso sem solicitar login novamente enquanto o token estiver válido.
+1. **Given** um usuário registrado com e-mail `joao@example.com` e senha válida, **When** ele submete `POST /api/auth/login` com essas credenciais, **Then** o sistema retorna `200 OK` com token JWT e data de expiração (`expira_em`).
+2. **Given** o usuário está autenticado com um JWT válido, **When** ele acessa qualquer endpoint protegido enviando o token no header `Authorization: Bearer <token>`, **Then** o sistema permite o acesso e retorna `X-Token-Renovado` com um novo JWT de TTL renovado.
 
 ---
 
@@ -66,7 +66,7 @@ O usuário autenticado pode encerrar sua sessão explicitamente, garantindo que 
 
 **Acceptance Scenarios**:
 
-1. **Given** um usuário autenticado, **When** ele aciona a ação de logout, **Then** a sessão é encerrada e qualquer acesso subsequente a áreas protegidas redireciona para a tela de login.
+1. **Given** um usuário autenticado, **When** ele aciona `POST /api/auth/logout` com o JWT no header `Authorization: Bearer`, **Then** o token é revogado e retorna `204 No Content`; qualquer acesso subsequente com esse token retorna `401 Unauthorized`.
 2. **Given** uma sessão encerrada via logout, **When** o usuário tenta reutilizar o token/cookie de sessão anterior, **Then** o sistema rejeita o acesso.
 
 ---
@@ -74,9 +74,9 @@ O usuário autenticado pode encerrar sua sessão explicitamente, garantindo que 
 ### Edge Cases
 
 - **Conta desativada**: O sistema exibe a mesma mensagem genérica "E-mail ou senha inválidos", sem revelar que a conta existe, prevenindo enumeração de contas.
-- Como o sistema se comporta se a sessão expirar enquanto o usuário está ativo?
-- O que ocorre se o usuário enviar o formulário múltiplas vezes simultaneamente (double submit)?
-- Como tratar e-mails com letras maiúsculas/minúsculas misturadas (ex.: `Joao@Example.com`)?
+- **Token expirado enquanto usuário está ativo**: O servidor retorna `401 Unauthorized` na próxima requisição; o cliente deve redirecionar para o fluxo de login. O mecanismo de sliding window (`X-Token-Renovado`) renova o token a cada requisição autenticada, reduzindo a frequência de expiração durante uso contínuo. Fora do escopo desta feature: refresh token automático sem relogin.
+- **Double submit (envio duplicado)**: A API é stateless e idempotente para login — cada requisição é processada independentemente. Dois logins válidos simultâneos geram dois JWTs distintos (ambos válidos). Proteção contra double submit é responsabilidade do cliente. Fora do escopo desta feature.
+- **E-mails com capitalização mista** (ex.: `Joao@Example.com`): Tratados por FR-003 — o sistema normaliza para minúsculas antes de processar.
 
 ## Requirements *(mandatory)*
 
@@ -92,7 +92,7 @@ O usuário autenticado pode encerrar sua sessão explicitamente, garantindo que 
 - **FR-008**: O sistema DEVE permitir que o usuário encerre explicitamente sua sessão (logout), invalidando somente o token do dispositivo atual; tokens de outros dispositivos do mesmo usuário permanecem válidos.
 - **FR-009**: O sistema DEVE manter um mecanismo de invalidação de tokens revogados, garantindo que o token descartado via logout seja rejeitado mesmo dentro do prazo de validade original.
 - **FR-012**: O sistema DEVE suportar que o mesmo usuário possua múltiplos tokens ativos simultaneamente (acesso de diferentes dispositivos).
-- **FR-010**: O sistema DEVE definir um TTL fixo para cada token emitido; após esse prazo, o token expira automaticamente independentemente do uso, e o usuário deve autenticar-se novamente.
+- **FR-010**: O sistema DEVE definir um TTL fixo para cada token emitido individualmente. A cada requisição autenticada bem-sucedida, um novo token com TTL renovado a partir do momento da emissão é retornado no header `X-Token-Renovado` (sliding window via substituição de token); o cliente DEVE substituir o token armazenado pelo valor recebido para manter a sessão ativa. Se nenhum novo token for recebido ou o token atual expirar, o usuário deve autenticar-se novamente.
 - **FR-011**: O sistema DEVE registrar cada evento de login (sucesso e falha) contendo: timestamp, identificador da conta e endereço IP de origem, para fins de auditoria e detecção de ataques.
 
 ### Key Entities
@@ -120,7 +120,7 @@ O usuário autenticado pode encerrar sua sessão explicitamente, garantindo que 
 - Q: Qual comportamento/mensagem exibir quando uma conta desativada tenta fazer login? → A: Exibir a mesma mensagem genérica "E-mail ou senha inválidos", sem revelar que a conta existe (prevenção de enumeração de contas).
 - Q: O sistema suporta sessões simultâneas em múltiplos dispositivos? Qual modelo de autenticação? → A: Padrão RESTful — autenticação stateless via token; cada dispositivo possui token independente, sessões simultâneas ilimitadas suportadas naturalmente.
 - Q: O logout revoga apenas o token atual ou todos os tokens ativos do usuário? → A: Apenas o token do dispositivo atual é revogado; outras sessões ativas em outros dispositivos permanecem intactas.
-- Q: A expiração do token é por TTL fixo desde a emissão ou por inatividade? → A: TTL fixo desde a emissão — token expira após duração fixa independentemente do uso, consistente com modelo stateless RESTful.
+- Q: A expiração do token é por TTL fixo desde a emissão ou por inatividade? → A: TTL fixo por token desde a emissão, combinado com sliding window: cada token individual expira após duração fixa (1h padrão), mas a cada requisição autenticada o servidor emite um novo token com TTL renovado via header `X-Token-Renovado`. A sessão efetiva permanece ativa enquanto o cliente atualizar seu token. Tokens individuais não são estendidos — novos tokens são emitidos.
 - Q: Quais dados devem constar nos registros de auditoria de eventos de login? → A: Padrão — timestamp + identificador da conta + resultado (sucesso/falha) + endereço IP de origem.
 
 ## Assumptions
