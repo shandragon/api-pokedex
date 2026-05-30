@@ -9,9 +9,19 @@ API REST para cadastro e gerenciamento de Pokémon, desenvolvida com Spring Boot
 - Spring Data JPA + PostgreSQL (dados estruturados)
 - Spring Data MongoDB (dados flexíveis)
 - Spring Security (autenticação por token Bearer)
+- Spring Validation (validação de dados de entrada)
 - UUID V7 via `uuid-creator` (identificadores ordenados por tempo)
 - Lombok
 - H2 + Flapdoodle (ambientes de teste)
+
+## Arquitetura de Persistência Híbrida
+
+O projeto adota uma abordagem híbrida para otimizar o armazenamento de diferentes tipos de dados:
+
+- **PostgreSQL**: Armazena entidades com esquemas rígidos e relacionais, como `Usuario`, `Pokemon` (dados básicos), `Tipo` e `Evolucao`. Garante a integridade referencial e consistência para dados críticos.
+- **MongoDB**: Armazena `PokemonAtributos`, permitindo que cada Pokémon possua um conjunto flexível de características (ataques, fraquezas, estatísticas) que podem evoluir sem necessidade de migrações de banco de dados.
+
+Os registros são correlacionados através do mesmo **UUID V7**. O sistema é projetado para ser tolerante a falhas parciais: se o MongoDB estiver temporariamente indisponível, o registro básico do Pokémon ainda é persistido no PostgreSQL.
 
 ## Estrutura do Projeto
 
@@ -21,20 +31,20 @@ src/main/java/br/edu/shandragon/pokedex/
 ├── config/                 # Configurações (JPA, MongoDB, Segurança)
 ├── exception/              # Tratamento global de exceções
 ├── pokemon/
-│   ├── documento/          # Documento MongoDB (PokemonAtributos)
+│   ├── document/           # Documento MongoDB (PokemonAtributos)
 │   ├── dto/                # DTOs de entrada e saída
 │   ├── controller/         # Endpoints REST
-│   ├── entidade/           # Entidades JPA (Pokemon, Tipo, Evolucao)
-│   ├── repositorio/
+│   ├── entity/             # Entidades JPA (Pokemon, Tipo, Evolucao)
+│   ├── repository/
 │   │   ├── jpa/            # Repositórios PostgreSQL
 │   │   └── mongo/          # Repositórios MongoDB
-│   └── servico/            # Lógica de negócio + merge dos dois bancos
+│   └── service/            # Lógica de negócio + merge dos dois bancos
 └── usuario/
     ├── dto/
     ├── controller/
-    ├── entidade/
-    ├── repositorio/jpa/
-    └── servico/
+    ├── entity/
+    ├── repository/jpa/
+    └── service/
 ```
 
 ## Pré-requisitos
@@ -47,31 +57,34 @@ src/main/java/br/edu/shandragon/pokedex/
 
 ### 1. Subir os bancos de dados
 
-```bash
-docker run -d \
-  --name pokedex-postgres \
-  -e POSTGRES_DB=pokedex \
-  -e POSTGRES_USER=pokedex \
-  -e POSTGRES_PASSWORD=pokedex \
-  -p 5432:5432 \
-  postgres:16-alpine
+Utilize o Docker Compose para iniciar as instâncias do PostgreSQL e MongoDB:
 
-docker run -d \
-  --name pokedex-mongo \
-  -p 27017:27017 \
-  mongo:7
+```bash
+docker-compose up -d
 ```
 
-### 2. Configurar `application.properties`
+Isso criará os containers com as credenciais e bancos de dados necessários (`app_pokedex`).
 
-O arquivo `src/main/resources/application.properties` já vem com as configurações padrão para desenvolvimento local. Ajuste se necessário:
+### 2. Configurar `application.yml`
 
-```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/pokedex
-spring.datasource.username=pokedex
-spring.datasource.password=pokedex
-spring.data.mongodb.uri=mongodb://localhost:27017/pokedex
-app.seguranca.token-admin=token-dev-alterar-em-producao
+O arquivo `src/main/resources/application.yml` contém as configurações padrão para desenvolvimento local:
+
+```yaml
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/app_pokedex
+    username: user_pokedex
+    password: 123456
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: app_pokedex
+      username: admin_pokedex
+      password: 123456
+app:
+  seguranca:
+    token-admin: token-dev-alterar-em-producao
 ```
 
 ### 3. Executar
@@ -90,7 +103,7 @@ A API estará disponível em `http://localhost:8080`.
 
 | Método | Rota | Autenticação | Descrição |
 |--------|------|-------------|-----------|
-| `POST` | `/api/pokemon` | Token Bearer | Cadastra um Pokémon |
+| `POST` | `/api/pokemon` | Token Bearer | Cadastra um Pokémon (obrigatório: `nome`, `numeroPokedex`) |
 | `GET` | `/api/pokemon` | Nenhuma | Lista todos os Pokémon |
 | `GET` | `/api/pokemon/{id}` | Nenhuma | Busca Pokémon por UUID |
 | `GET` | `/api/pokedex/por-tipo` | Nenhuma | Lista Pokémon agrupados por tipo |
@@ -100,8 +113,8 @@ A API estará disponível em `http://localhost:8080`.
 
 | Método | Rota | Autenticação | Descrição |
 |--------|------|-------------|-----------|
-| `POST` | `/api/usuarios` | Token Bearer | Cadastra um usuário |
-| `GET` | `/api/usuarios` | Nenhuma | Lista usuários (apenas id e nome) |
+| `POST` | `/api/usuarios` | Token Bearer | Cadastra um usuário (obrigatório: `nome`, `email`, `senha`) |
+| `GET` | `/api/usuarios` | Nenhuma | Lista usuários (apenas id e nome por privacidade) |
 | `GET` | `/api/usuarios/{id}` | Nenhuma | Busca usuário por UUID |
 
 ### Autenticação
@@ -112,7 +125,7 @@ Endpoints de escrita exigem o cabeçalho:
 Authorization: Bearer <token-configurado>
 ```
 
-O token é configurado em `app.seguranca.token-admin` no `application.properties`.
+O token padrão de desenvolvimento é `token-dev-alterar-em-producao`.
 
 ## Exemplos de uso
 
@@ -123,7 +136,7 @@ curl -X POST http://localhost:8080/api/pokemon \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer token-dev-alterar-em-producao" \
   -d '{
-    "numeroPokdex": 1,
+    "numeroPokedex": 1,
     "nome": "Bulbasaur",
     "tipos": ["Planta", "Veneno"],
     "ataques": ["Investida", "Absorver", "Chicote de Vinha"],
