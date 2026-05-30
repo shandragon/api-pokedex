@@ -39,6 +39,15 @@ public class PokemonService {
     }
 
     @Transactional
+    public void salvarParaSeed(PokemonRequisicaoDTO dto) {
+        if (pokemonRepositorio.existsByNumeroPokdex(dto.numeroPokdex())) return;
+        Set<Tipo> tipos = resolverTipos(dto.tipos());
+        var id = UuidUtil.gerarV7();
+        pokemonRepositorio.save(new Pokemon(id, dto.numeroPokdex(), dto.nome(), tipos));
+        salvarAtributosFlexiveis(id.toString(), dto.atributosExtras());
+    }
+
+    @Transactional
     public PokemonRespostaDTO criar(PokemonRequisicaoDTO dto) {
         if (pokemonRepositorio.existsByNumeroPokdex(dto.numeroPokdex())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,

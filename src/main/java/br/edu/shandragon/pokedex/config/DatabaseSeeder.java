@@ -79,27 +79,24 @@ public class DatabaseSeeder implements CommandLineRunner {
                 }
 
                 var dto = new PokemonRequisicaoDTO(numero, nome, tipos, List.of(), extras);
-                pokemonService.criar(dto);
+                pokemonService.salvarParaSeed(dto);
             }
         }
 
-        // Segundo Passo: Vincular Evoluções
+        // Segundo Passo: Vincular Evoluções (1 query em vez de ~160)
         log.info("Vinculando evoluções...");
-        for (var entry : evolucoesPendentes.entrySet()) {
-            String nomeOrigem = entry.getKey();
-            List<String> nomesDestino = entry.getValue();
+        Map<String, Pokemon> pokemonPorNome = new HashMap<>();
+        for (Pokemon p : pokemonRepository.findAll()) {
+            pokemonPorNome.put(p.getNome(), p);
+        }
 
-            Optional<Pokemon> origemOpt = pokemonRepository.findByNome(nomeOrigem);
-            if (origemOpt.isPresent()) {
-                for (String nomeDestino : nomesDestino) {
-                    Optional<Pokemon> destinoOpt = pokemonRepository.findByNome(nomeDestino);
-                    if (destinoOpt.isPresent()) {
-                        evolucaoRepository.save(new Evolucao(
-                                UuidUtil.gerarV7(), 
-                                origemOpt.get(), 
-                                destinoOpt.get()
-                        ));
-                    }
+        for (var entry : evolucoesPendentes.entrySet()) {
+            Pokemon origem = pokemonPorNome.get(entry.getKey());
+            if (origem == null) continue;
+            for (String nomeDestino : entry.getValue()) {
+                Pokemon destino = pokemonPorNome.get(nomeDestino);
+                if (destino != null) {
+                    evolucaoRepository.save(new Evolucao(UuidUtil.gerarV7(), origem, destino));
                 }
             }
         }
