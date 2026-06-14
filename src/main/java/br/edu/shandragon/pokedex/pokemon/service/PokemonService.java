@@ -1,5 +1,6 @@
 package br.edu.shandragon.pokedex.pokemon.service;
 
+import br.edu.shandragon.pokedex.compartilhado.dto.PaginaRespostaDTO;
 import br.edu.shandragon.pokedex.compartilhado.UuidUtil;
 import br.edu.shandragon.pokedex.pokemon.document.PokemonAtributos;
 import br.edu.shandragon.pokedex.pokemon.dto.PokemonRequisicaoDTO;
@@ -11,6 +12,7 @@ import br.edu.shandragon.pokedex.pokemon.repository.jpa.EvolucaoRepository;
 import br.edu.shandragon.pokedex.pokemon.repository.jpa.PokemonRepository;
 import br.edu.shandragon.pokedex.pokemon.repository.jpa.TipoRepository;
 import br.edu.shandragon.pokedex.pokemon.repository.mongo.PokemonAtributosRepository;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,8 +68,26 @@ public class PokemonService {
         return montar(salvo, dto.atributosExtras() != null ? dto.atributosExtras() : Map.of());
     }
 
-    public List<PokemonRespostaDTO> listarTodos() {
-        return pokemonRepositorio.findAll().stream()
+    public PaginaRespostaDTO<PokemonRespostaDTO> listar(Integer page, Integer size) {
+        List<Pokemon> pokemons;
+        long totalItens;
+        int itensPorPagina;
+        int paginaAtual;
+
+        if (page != null && size != null) {
+            var resultado = pokemonRepositorio.findAll(PageRequest.of(page, size));
+            pokemons = resultado.getContent();
+            totalItens = resultado.getTotalElements();
+            itensPorPagina = resultado.getSize();
+            paginaAtual = resultado.getNumber();
+        } else {
+            pokemons = pokemonRepositorio.findAll();
+            totalItens = pokemons.size();
+            itensPorPagina = pokemons.size();
+            paginaAtual = 0;
+        }
+
+        var itensDTO = pokemons.stream()
                 .map(p -> {
                     var extras = atributosRepositorio.findById(p.getId().toString())
                             .map(PokemonAtributos::getAtributos)
@@ -75,6 +95,8 @@ public class PokemonService {
                     return montar(p, extras);
                 })
                 .toList();
+
+        return new PaginaRespostaDTO<>(totalItens, itensPorPagina, paginaAtual, itensDTO);
     }
 
     public PokemonRespostaDTO buscarPorId(String id) {

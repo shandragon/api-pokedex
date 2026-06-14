@@ -104,7 +104,7 @@ A API estará disponível em `http://localhost:8080`.
 | Método | Rota | Autenticação | Descrição |
 |--------|------|-------------|-----------|
 | `POST` | `/api/pokemon` | Token Bearer | Cadastra um Pokémon (obrigatório: `nome`, `numeroPokedex`) |
-| `GET` | `/api/pokemon` | Nenhuma | Lista todos os Pokémon |
+| `GET` | `/api/pokemon` | Nenhuma | Lista Pokémon com paginação opcional (`?page=0&size=10`) |
 | `GET` | `/api/pokemon/{id}` | Nenhuma | Busca Pokémon por UUID |
 | `GET` | `/api/pokedex/por-tipo` | Nenhuma | Lista Pokémon agrupados por tipo |
 | `GET` | `/api/pokedex/{id}/evolucoes` | Nenhuma | Lista evoluções de um Pokémon |
@@ -147,8 +147,24 @@ curl -X POST http://localhost:8080/api/pokemon \
 
 ### Listar Pokémon
 
+Retorna uma lista paginada com metadados. Se os parâmetros `page` e `size` não forem informados, retorna todos os itens.
+
 ```bash
-curl http://localhost:8080/api/pokemon
+# Listar com paginação
+curl "http://localhost:8080/api/pokemon?page=0&size=5"
+```
+
+**Exemplo de Resposta**:
+```json
+{
+  "totalItens": 151,
+  "itensPorPagina": 5,
+  "paginaAtual": 0,
+  "itens": [
+    { "id": "...", "nome": "Bulbasaur", ... },
+    { "id": "...", "nome": "Ivysaur", ... }
+  ]
+}
 ```
 
 ### Cadastrar um Usuário

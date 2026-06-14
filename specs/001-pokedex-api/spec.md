@@ -7,22 +7,35 @@
 
 ## Cenários de Usuário e Testes *(obrigatório)*
 
-### História de Usuário 1 - Listagem de Pokémon Agrupada por Tipo (Prioridade: P1)
+### História de Usuário 1 - Listagem de Pokémon (Prioridade: P1)
+
+Como um usuário, quero visualizar uma lista de todos os Pokémon cadastrados, com suporte a paginação, para que eu possa explorar os Pokémon de forma organizada e eficiente.
+
+**Teste Independente**: A API retorna corretamente a lista de Pokémon com metadados de paginação quando os parâmetros `page` e `size` são fornecidos.
+
+**Cenários de Aceite**:
+
+1. **Dado** que existem Pokémon cadastrados e nenhum parâmetro é fornecido, **Quando** o usuário solicita a lista, **Então** o sistema retorna todos os Pokémon.
+2. **Dado** que os parâmetros `page` e `size` são fornecidos, **Quando** o usuário solicita a lista, **Então** o sistema retorna apenas os Pokémon daquela página e inclui metadados (`totalItens`, `itensPorPagina`, `paginaAtual`).
+
+---
+
+### História de Usuário 2 - Listagem de Pokémon Agrupada por Tipo (Prioridade: P2)
 
 Como um usuário, quero visualizar uma lista de todos os Pokémon cadastrados, organizados por seus respectivos tipos, para que eu possa explorar os Pokémon de acordo com suas características elementais.
 
-**Por que esta prioridade**: É a funcionalidade principal solicitada para a provisão da lista.
+**Por que esta prioridade**: É uma funcionalidade de exploração adicional.
 
 **Teste Independente**: A API retorna corretamente a lista de Pokémon organizada por chaves de tipo, onde cada Pokémon aparece em todas as chaves de tipos que possui.
 
 **Cenários de Aceite**:
 
-1. **Dado** que existem Pokémon cadastrados, **Quando** o usuário solicita a lista, **Então** o sistema retorna os Pokémon agrupados por tipo.
+1. **Dado** que existem Pokémon cadastrados, **Quando** o usuário solicita a lista por tipo, **Então** o sistema retorna os Pokémon agrupados por tipo.
 2. **Dado** que um Pokémon possui múltiplos tipos, **Quando** o usuário visualiza o agrupamento, **Então** esse Pokémon aparece corretamente em cada categoria de tipo.
 
 ---
 
-### História de Usuário 2 - Visualização de Evoluções (Prioridade: P2)
+### História de Usuário 3 - Visualização de Evoluções (Prioridade: P2)
 
 Como um usuário, quero consultar a linha evolutiva de um Pokémon específico para entender como ele se transforma.
 

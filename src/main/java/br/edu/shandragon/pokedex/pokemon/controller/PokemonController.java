@@ -1,5 +1,6 @@
 package br.edu.shandragon.pokedex.pokemon.controller;
 
+import br.edu.shandragon.pokedex.compartilhado.dto.PaginaRespostaDTO;
 import br.edu.shandragon.pokedex.pokemon.dto.PokemonRequisicaoDTO;
 import br.edu.shandragon.pokedex.pokemon.dto.PokemonRespostaDTO;
 import br.edu.shandragon.pokedex.pokemon.service.PokemonService;
@@ -26,8 +27,10 @@ public class PokemonController {
     }
 
     @GetMapping("/api/pokemon")
-    public ResponseEntity<List<PokemonRespostaDTO>> listar() {
-        return ResponseEntity.ok(servico.listarTodos());
+    public ResponseEntity<PaginaRespostaDTO<PokemonRespostaDTO>> listar(
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer size) {
+        return ResponseEntity.ok(servico.listar(page, size));
     }
 
     @GetMapping("/api/pokemon/{id}")

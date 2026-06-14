@@ -1,5 +1,6 @@
 package br.edu.shandragon.pokedex.pokemon.controller;
 
+import br.edu.shandragon.pokedex.compartilhado.dto.PaginaRespostaDTO;
 import br.edu.shandragon.pokedex.pokemon.dto.PokemonRequisicaoDTO;
 import br.edu.shandragon.pokedex.pokemon.dto.PokemonRespostaDTO;
 import br.edu.shandragon.pokedex.auth.service.JwtService;
@@ -100,11 +101,27 @@ class PokemonControllerTest {
 
     @Test
     void getListarDeveRetornar200SemAutenticacao() throws Exception {
-        when(servico.listarTodos()).thenReturn(List.of(respostaExemplo()));
+        var pagina = new PaginaRespostaDTO<>(1L, 1, 0, List.of(respostaExemplo()));
+        when(servico.listar(any(), any())).thenReturn(pagina);
 
         mockMvc.perform(get("/api/pokemon"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].nome").value("Bulbasaur"));
+                .andExpect(jsonPath("$.itens[0].nome").value("Bulbasaur"))
+                .andExpect(jsonPath("$.totalItens").value(1));
+    }
+
+    @Test
+    void getListarPaginadoDeveRetornar200() throws Exception {
+        var pagina = new PaginaRespostaDTO<>(1L, 5, 0, List.of(respostaExemplo()));
+        when(servico.listar(0, 5)).thenReturn(pagina);
+
+        mockMvc.perform(get("/api/pokemon")
+                        .param("page", "0")
+                        .param("size", "5"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.itens[0].nome").value("Bulbasaur"))
+                .andExpect(jsonPath("$.itensPorPagina").value(5))
+                .andExpect(jsonPath("$.paginaAtual").value(0));
     }
 
     @Test
@@ -117,12 +134,14 @@ class PokemonControllerTest {
     }
 
     @Test
-    void getListarSemPokemonsDeveRetornarArrayVazio() throws Exception {
-        when(servico.listarTodos()).thenReturn(List.of());
+    void getListarSemPokemonsDeveRetornarPaginaVazia() throws Exception {
+        PaginaRespostaDTO<PokemonRespostaDTO> pagina = new PaginaRespostaDTO<>(0L, 0, 0, List.of());
+        when(servico.listar(any(), any())).thenReturn(pagina);
 
         mockMvc.perform(get("/api/pokemon"))
                 .andExpect(status().isOk())
-                .andExpect(content().json("[]"));
+                .andExpect(jsonPath("$.itens").isEmpty())
+                .andExpect(jsonPath("$.totalItens").value(0));
     }
 
     @Test

@@ -1,5 +1,6 @@
 package br.edu.shandragon.pokedex.pokemon.service;
 
+import br.edu.shandragon.pokedex.compartilhado.dto.PaginaRespostaDTO;
 import br.edu.shandragon.pokedex.pokemon.document.PokemonAtributos;
 import br.edu.shandragon.pokedex.pokemon.dto.PokemonRequisicaoDTO;
 import br.edu.shandragon.pokedex.pokemon.entity.Evolucao;
@@ -15,6 +16,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
@@ -23,7 +27,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.lenient;
 
 @ExtendWith(MockitoExtension.class)
 class PokemonServiceTest {
@@ -91,10 +94,26 @@ class PokemonServiceTest {
         when(atributosRepositorio.findById(pokemonSalvo.getId().toString()))
                 .thenReturn(Optional.of(atributos));
 
-        var lista = servico.listarTodos();
+        var resposta = servico.listar(null, null);
 
-        assertThat(lista).hasSize(1);
-        assertThat(lista.get(0).atributosExtras()).containsKey("ataques");
+        assertThat(resposta.itens()).hasSize(1);
+        assertThat(resposta.itens().get(0).atributosExtras()).containsKey("ataques");
+        assertThat(resposta.totalItens()).isEqualTo(1);
+    }
+
+    @Test
+    void deveListarPaginado() {
+        Page<Pokemon> page = new PageImpl<>(List.of(pokemonSalvo));
+        when(pokemonRepositorio.findAll(any(PageRequest.class))).thenReturn(page);
+        when(atributosRepositorio.findById(anyString())).thenReturn(Optional.empty());
+
+        var resposta = servico.listar(0, 1);
+
+        assertThat(resposta.itens()).hasSize(1);
+        assertThat(resposta.totalItens()).isEqualTo(1);
+        assertThat(resposta.itensPorPagina()).isEqualTo(1);
+        assertThat(resposta.paginaAtual()).isEqualTo(0);
+        verify(pokemonRepositorio).findAll(PageRequest.of(0, 1));
     }
 
     @Test
@@ -103,10 +122,10 @@ class PokemonServiceTest {
         when(atributosRepositorio.findById(pokemonSalvo.getId().toString()))
                 .thenReturn(Optional.empty());
 
-        var lista = servico.listarTodos();
+        var resposta = servico.listar(null, null);
 
-        assertThat(lista).hasSize(1);
-        assertThat(lista.get(0).atributosExtras()).isEmpty();
+        assertThat(resposta.itens()).hasSize(1);
+        assertThat(resposta.itens().get(0).atributosExtras()).isEmpty();
     }
 
     @Test

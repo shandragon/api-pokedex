@@ -170,7 +170,38 @@
 							"host": ["{{base_url}}"],
 							"path": ["api", "pokemon"]
 						},
-						"description": "Lista todos os Pokémon cadastrados com visão unificada (atributos fixos + flexíveis). Endpoint aberto, sem autenticação."
+						"description": "Lista todos os Pokémon cadastrados com visão unificada (atributos fixos + flexíveis). Retorna metadados de paginação mesmo se os parâmetros não forem fornecidos. Endpoint aberto, sem autenticação."
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Pokémon Paginação",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/pokemon?page=0&size=5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"pokemon"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"description": "Página atual (iniciando em 0)"
+								},
+								{
+									"key": "size",
+									"value": "5",
+									"description": "Quantidade de itens por página"
+								}
+							]
+						},
+						"description": "Lista Pokémon de forma paginada. Retorna `totalItens`, `itensPorPagina`, `paginaAtual` e a lista de `itens`. Endpoint aberto."
 					},
 					"response": []
 				},
